@@ -140,13 +140,34 @@ tailwind.config = {
       <div class="flex items-start justify-between mb-5">
         <div>
           <h3 class="text-[13px] font-bold text-slate-200">Credit Risk Dataset · Kaggle</h3>
-          <p class="text-[11px] text-slate-600 mt-0.5">laotse · 32.581 registros originales</p>
+          <p class="text-[11px] text-slate-600 mt-0.5">Autor: laotse · 32.581 registros originales · Licencia CC0</p>
         </div>
-        <span class="bg-acc/10 border border-acc/20 text-acc text-[10px] font-semibold px-2.5 py-1 rounded-full">Fuente publica</span>
+        <a href="https://www.kaggle.com/datasets/laotse/credit-risk-dataset" target="_blank"
+          class="bg-acc/10 border border-acc/20 text-acc text-[10px] font-semibold px-2.5 py-1 rounded-full hover:bg-acc/20 transition-colors flex items-center gap-1.5">
+          <i class="bi bi-box-arrow-up-right text-[9px]"></i>Ver en Kaggle
+        </a>
       </div>
-      <p class="text-[12px] text-slate-500 leading-relaxed">
-        Dataset de creditos de consumo general en contexto estadounidense. Contiene variables como ingreso anual, calificacion crediticia, monto solicitado, tasa de interes y estado del prestamo (pagado / incumplido).
+      <p class="text-[12px] text-slate-500 leading-relaxed mb-4">
+        Dataset de creditos de consumo general en contexto estadounidense. Contiene variables como ingreso anual, calificacion crediticia (loan_grade A–G), monto solicitado, tasa de interes y estado del prestamo (pagado / incumplido). Fue seleccionado por su volumen, diversidad de variables y acceso libre, aunque requirio una adaptacion profunda al mercado hipotecario colombiano.
       </p>
+      <div class="grid grid-cols-4 gap-3 pt-4 border-t border-bdr">
+        <div>
+          <p class="text-[20px] font-black text-slate-300">32.581</p>
+          <p class="text-[9px] text-slate-700 uppercase tracking-wide">registros fuente</p>
+        </div>
+        <div>
+          <p class="text-[20px] font-black text-slate-300">3.953</p>
+          <p class="text-[9px] text-slate-700 uppercase tracking-wide">filas eliminadas (ETL)</p>
+        </div>
+        <div>
+          <p class="text-[20px] font-black text-slate-300">28.628</p>
+          <p class="text-[9px] text-slate-700 uppercase tracking-wide">registros finales</p>
+        </div>
+        <div>
+          <p class="text-[20px] font-black text-slate-300">22</p>
+          <p class="text-[9px] text-slate-700 uppercase tracking-wide">columnas finales</p>
+        </div>
+      </div>
     </div>
 
     <!-- ETL steps -->
@@ -163,7 +184,7 @@ tailwind.config = {
           </div>
           <div class="pb-4">
             <p class="text-[12px] font-semibold text-slate-300">Limpieza y filtrado</p>
-            <p class="text-[11px] text-slate-600 mt-1">Eliminacion de edades atipicas (&gt;80), antigüedad laboral imposible (&gt;40 años) e ingresos extremos. Resultado: 28.628 filas.</p>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">Se eliminaron 3.953 filas con valores atipicos: edades fuera del rango 18–75 años, antiguedad laboral imposible (&gt;50 años) e ingresos negativos o extremos. Tambien se descartaron registros con campos criticos nulos (loan_status, person_income). Resultado: 28.628 filas limpias.</p>
           </div>
         </div>
 
@@ -175,8 +196,8 @@ tailwind.config = {
             <div class="w-px flex-1 bg-bdr mt-2"></div>
           </div>
           <div class="pb-4">
-            <p class="text-[12px] font-semibold text-slate-300">Conversion de unidades</p>
-            <p class="text-[11px] text-slate-600 mt-1">Ingresos anuales USD → ingresos mensuales en millones COP (TRM $4.200). Montos de credito escalados a rangos hipotecarios colombianos (30M–900M COP).</p>
+            <p class="text-[12px] font-semibold text-slate-300">Conversion de unidades al contexto colombiano</p>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">Los ingresos anuales en USD se convirtieron a ingresos mensuales en millones COP usando TRM de referencia $4.200 (promedio 2024). Los montos de credito se reescalaron a rangos hipotecarios colombianos (30M–900M COP). Las tasas se ajustaron al rango del mercado hipotecario colombiano (10%–18% EA).</p>
           </div>
         </div>
 
@@ -188,8 +209,8 @@ tailwind.config = {
             <div class="w-px flex-1 bg-bdr mt-2"></div>
           </div>
           <div class="pb-4">
-            <p class="text-[12px] font-semibold text-slate-300">Variables nuevas — contexto colombiano</p>
-            <p class="text-[11px] text-slate-600 mt-1">Ciudad (15 ciudades ponderadas por poblacion), Tipo de contrato (Indefinido / Termino fijo / Independiente / Informal), Tipo de vivienda (VIS / No VIS), Aplica_Subsidio (Mi Casa Ya).</p>
+            <p class="text-[12px] font-semibold text-slate-300">Creacion de variables colombianas</p>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed">Se generaron columnas que no existen en el dataset original: <span class="text-slate-400">Ciudad</span> (15 ciudades asignadas aleatoriamente ponderadas por poblacion DANE 2023), <span class="text-slate-400">Tipo_Contrato</span> (Indefinido / Termino fijo / Independiente / Informal), <span class="text-slate-400">Tipo_Vivienda</span> (VIS si valor ≤ 190M COP), <span class="text-slate-400">Aplica_Subsidio</span> (Mi Casa Ya: ingreso ≤ 5.2M y VIS = Si).</p>
           </div>
         </div>
 
@@ -200,8 +221,8 @@ tailwind.config = {
             </div>
           </div>
           <div>
-            <p class="text-[12px] font-semibold text-slate-300">Variables derivadas de riesgo</p>
-            <p class="text-[11px] text-slate-600 mt-1">Nivel_Riesgo (score compuesto: historial + endeudamiento + contrato + mora previa). Segmento_Cliente (6 perfiles segun capacidad de pago). Estado_Solicitud (probabilistico segun loan_status original).</p>
+            <p class="text-[12px] font-semibold text-slate-300">Ingenieria de variables objetivo</p>
+            <p class="text-[11px] text-slate-600 mt-1 leading-relaxed"><span class="text-slate-400">Nivel_Riesgo</span>: score compuesto (0–10) basado en historial crediticio, ratio deuda/ingreso, tipo de contrato y mora previa; clasificado en Bajo / Medio / Alto. <span class="text-slate-400">Segmento_Cliente</span>: 6 perfiles segun capacidad de pago e ingresos. <span class="text-slate-400">Estado_Solicitud</span>: derivado probabilisticamente del loan_status original (charged-off → mayor probabilidad de Rechazado).</p>
           </div>
         </div>
 
