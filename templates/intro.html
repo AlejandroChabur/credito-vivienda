@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Introduccion · Credito Vivienda Colombia</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        base:  '#030812',
+        panel: '#07101f',
+        card:  '#0c1726',
+        bdr:   '#162030',
+        acc:   '#818cf8',
+      },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+  body { background:#030812; }
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:#1e2f45; border-radius:4px; }
+</style>
+</head>
+<body class="font-sans text-slate-300 min-h-screen">
+
+<!-- ── NAV ─────────────────────────────────────────────────── -->
+<nav class="sticky top-0 z-40 bg-panel border-b border-bdr">
+  <div class="max-w-6xl mx-auto px-6 flex items-center justify-between h-12">
+    <div class="flex items-center gap-2.5">
+      <div class="w-6 h-6 rounded-md bg-gradient-to-br from-indigo-500 to-indigo-800 flex items-center justify-center">
+        <i class="bi bi-house-fill text-white text-[10px]"></i>
+      </div>
+      <span class="text-[13px] font-bold text-white">Credito Vivienda</span>
+      <span class="text-slate-700 mx-1">·</span>
+      <span class="text-[11px] text-acc">Colombia</span>
+    </div>
+    <div class="flex items-center gap-1">
+      <a href="/intro"
+        class="px-3.5 py-1.5 text-[11px] font-semibold text-white border-b-2 border-acc">
+        Introduccion
+      </a>
+      <a href="/"
+        class="px-3.5 py-1.5 text-[11px] font-semibold text-slate-500 hover:text-slate-200 border-b-2 border-transparent hover:border-bdr transition-colors">
+        Dashboard
+      </a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ─────────────────────────────────────────────────── -->
+<section class="max-w-6xl mx-auto px-6 pt-14 pb-10">
+  <p class="text-[10px] font-bold uppercase tracking-widest text-acc mb-4">Business Analytics · Unicundinamarca 2025</p>
+  <h1 class="text-[38px] font-black text-white leading-tight tracking-tight max-w-3xl">
+    Perfilacion de Clientes en<br>Creditos de Vivienda
+    <span class="text-acc">Colombia</span>
+  </h1>
+  <p class="text-slate-500 text-[15px] mt-4 max-w-2xl leading-relaxed">
+    Analisis exploratorio e interactivo de 28.628 solicitudes de credito hipotecario para identificar los factores que determinan la aprobacion, el perfil de riesgo del solicitante y el impacto del programa Mi Casa Ya.
+  </p>
+
+  <!-- Stat strip -->
+  <div class="mt-10 flex items-stretch divide-x divide-bdr bg-card border border-bdr rounded-xl overflow-hidden">
+    <div class="flex-1 px-6 py-5">
+      <p class="text-[32px] font-black text-slate-100 leading-none">28.628</p>
+      <p class="text-[10px] text-slate-600 mt-1.5 uppercase tracking-widest">solicitudes analizadas</p>
+    </div>
+    <div class="flex-1 px-6 py-5">
+      <p class="text-[32px] font-black text-slate-100 leading-none">22</p>
+      <p class="text-[10px] text-slate-600 mt-1.5 uppercase tracking-widest">variables por registro</p>
+    </div>
+    <div class="flex-1 px-6 py-5">
+      <p class="text-[32px] font-black text-slate-100 leading-none">15</p>
+      <p class="text-[10px] text-slate-600 mt-1.5 uppercase tracking-widest">ciudades colombianas</p>
+    </div>
+    <div class="flex-1 px-6 py-5">
+      <p class="text-[32px] font-black text-slate-100 leading-none">6</p>
+      <p class="text-[10px] text-slate-600 mt-1.5 uppercase tracking-widest">segmentos de cliente</p>
+    </div>
+    <div class="flex-1 px-6 py-5">
+      <p class="text-[32px] font-black text-emerald-400 leading-none">64.4%</p>
+      <p class="text-[10px] text-slate-600 mt-1.5 uppercase tracking-widest">tasa de aprobacion</p>
+    </div>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-6 space-y-12 pb-20">
+
+  <!-- ── CONTEXTO ─────────────────────────────────────────── -->
+  <section>
+    <div class="flex items-center gap-3 mb-6">
+      <span class="text-[10px] font-black text-acc uppercase tracking-widest">01</span>
+      <div class="h-px flex-1 bg-bdr"></div>
+      <span class="text-[13px] font-bold text-slate-300 uppercase tracking-wide">Contexto del problema</span>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div class="bg-card border border-bdr rounded-xl p-6">
+        <i class="bi bi-bank text-acc text-xl mb-4 block"></i>
+        <h3 class="text-[13px] font-bold text-slate-200 mb-2">El mercado hipotecario en Colombia</h3>
+        <p class="text-[12px] text-slate-500 leading-relaxed">
+          El credito de vivienda es uno de los instrumentos financieros de mayor impacto social en Colombia. Las entidades bancarias deben evaluar la capacidad de pago, el historial crediticio y la estabilidad laboral de cada solicitante para minimizar el riesgo de incumplimiento.
+        </p>
+      </div>
+      <div class="bg-card border border-bdr rounded-xl p-6">
+        <i class="bi bi-house-heart text-emerald-500 text-xl mb-4 block"></i>
+        <h3 class="text-[13px] font-bold text-slate-200 mb-2">Programa Mi Casa Ya</h3>
+        <p class="text-[12px] text-slate-500 leading-relaxed">
+          Iniciativa del gobierno colombiano que subsidia la cuota inicial y reduce la tasa de interes para hogares con ingresos hasta 5.2 millones COP/mes que buscan vivienda VIS (Vivienda de Interes Social, valor maximo 190 millones COP).
+        </p>
+      </div>
+      <div class="bg-card border border-bdr rounded-xl p-6 col-span-2">
+        <i class="bi bi-question-circle text-amber-500 text-xl mb-4 block"></i>
+        <h3 class="text-[13px] font-bold text-slate-200 mb-2">Pregunta de investigacion</h3>
+        <p class="text-[14px] text-slate-400 leading-relaxed">
+          ¿Que variables socioeconomicas, laborales y crediticias determinan el perfil de un solicitante de credito de vivienda en Colombia y cual es su probabilidad de aprobacion?
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── DATASET ──────────────────────────────────────────── -->
+  <section>
+    <div class="flex items-center gap-3 mb-6">
+      <span class="text-[10px] font-black text-acc uppercase tracking-widest">02</span>
+      <div class="h-px flex-1 bg-bdr"></div>
+      <span class="text-[13px] font-bold text-slate-300 uppercase tracking-wide">Fuente de datos</span>
+    </div>
+
+    <div class="bg-card border border-bdr rounded-xl p-6 mb-4">
+      <div class="flex items-start justify-between mb-5">
+        <div>
+          <h3 class="text-[13px] font-bold text-slate-200">Credit Risk Dataset · Kaggle</h3>
+          <p class="text-[11px] text-slate-600 mt-0.5">laotse · 32.581 registros originales</p>
+        </div>
+        <span class="bg-acc/10 border border-acc/20 text-acc text-[10px] font-semibold px-2.5 py-1 rounded-full">Fuente publica</span>
+      </div>
+      <p class="text-[12px] text-slate-500 leading-relaxed">
+        Dataset de creditos de consumo general en contexto estadounidense. Contiene variables como ingreso anual, calificacion crediticia, monto solicitado, tasa de interes y estado del prestamo (pagado / incumplido).
+      </p>
+    </div>
+
+    <!-- ETL steps -->
+    <div class="bg-card border border-bdr rounded-xl p-6">
+      <h3 class="text-[12px] font-bold text-slate-300 mb-5 uppercase tracking-wide">Proceso de adaptacion al contexto colombiano (ETL)</h3>
+      <div class="space-y-4">
+
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-7 h-7 rounded-full bg-acc/15 border border-acc/30 flex items-center justify-center shrink-0">
+              <span class="text-[10px] font-black text-acc">1</span>
+            </div>
+            <div class="w-px flex-1 bg-bdr mt-2"></div>
+          </div>
+          <div class="pb-4">
+            <p class="text-[12px] font-semibold text-slate-300">Limpieza y filtrado</p>
+            <p class="text-[11px] text-slate-600 mt-1">Eliminacion de edades atipicas (&gt;80), antigüedad laboral imposible (&gt;40 años) e ingresos extremos. Resultado: 28.628 filas.</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-7 h-7 rounded-full bg-acc/15 border border-acc/30 flex items-center justify-center shrink-0">
+              <span class="text-[10px] font-black text-acc">2</span>
+            </div>
+            <div class="w-px flex-1 bg-bdr mt-2"></div>
+          </div>
+          <div class="pb-4">
+            <p class="text-[12px] font-semibold text-slate-300">Conversion de unidades</p>
+            <p class="text-[11px] text-slate-600 mt-1">Ingresos anuales USD → ingresos mensuales en millones COP (TRM $4.200). Montos de credito escalados a rangos hipotecarios colombianos (30M–900M COP).</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-7 h-7 rounded-full bg-acc/15 border border-acc/30 flex items-center justify-center shrink-0">
+              <span class="text-[10px] font-black text-acc">3</span>
+            </div>
+            <div class="w-px flex-1 bg-bdr mt-2"></div>
+          </div>
+          <div class="pb-4">
+            <p class="text-[12px] font-semibold text-slate-300">Variables nuevas — contexto colombiano</p>
+            <p class="text-[11px] text-slate-600 mt-1">Ciudad (15 ciudades ponderadas por poblacion), Tipo de contrato (Indefinido / Termino fijo / Independiente / Informal), Tipo de vivienda (VIS / No VIS), Aplica_Subsidio (Mi Casa Ya).</p>
+          </div>
+        </div>
+
+        <div class="flex gap-4">
+          <div class="flex flex-col items-center">
+            <div class="w-7 h-7 rounded-full bg-acc/15 border border-acc/30 flex items-center justify-center shrink-0">
+              <span class="text-[10px] font-black text-acc">4</span>
+            </div>
+          </div>
+          <div>
+            <p class="text-[12px] font-semibold text-slate-300">Variables derivadas de riesgo</p>
+            <p class="text-[11px] text-slate-600 mt-1">Nivel_Riesgo (score compuesto: historial + endeudamiento + contrato + mora previa). Segmento_Cliente (6 perfiles segun capacidad de pago). Estado_Solicitud (probabilistico segun loan_status original).</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── VARIABLES ────────────────────────────────────────── -->
+  <section>
+    <div class="flex items-center gap-3 mb-6">
+      <span class="text-[10px] font-black text-acc uppercase tracking-widest">03</span>
+      <div class="h-px flex-1 bg-bdr"></div>
+      <span class="text-[13px] font-bold text-slate-300 uppercase tracking-wide">Variables del dataset final</span>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3">
+      {% for grupo, vars in [
+        ('Perfil del solicitante', [
+          ('Edad', 'Años del solicitante'),
+          ('Ciudad', '15 ciudades colombianas'),
+          ('Vivienda_Actual', 'Arrendatario / Propietario / Hipotecado'),
+        ]),
+        ('Situacion laboral', [
+          ('Tipo_Contrato', 'Indefinido / Termino fijo / Independiente / Informal'),
+          ('Antiguedad_Laboral_Anos', 'Años en el empleo actual'),
+          ('Ingresos_Mensuales_MCOP', 'Ingreso mensual en millones COP'),
+        ]),
+        ('Historial crediticio', [
+          ('Historial_Crediticio', 'Bueno / Regular / Malo / Inexistente'),
+          ('Anos_Historial_Crediticio', 'Longitud del historial'),
+          ('Mora_Previa', 'Si tuvo mora registrada'),
+        ]),
+        ('Credito solicitado', [
+          ('Monto_Solicitado_MCOP', 'Valor del credito en MCOP'),
+          ('Plazo_Anos', '10 / 15 / 20 / 25 / 30 años'),
+          ('Tasa_Interes_EA_Pct', 'Tasa efectiva anual (%)'),
+        ]),
+        ('Vivienda y subsidio', [
+          ('Tipo_Vivienda', 'VIS (≤190M) o No VIS'),
+          ('Valor_Vivienda_MCOP', 'Precio total del inmueble'),
+          ('Aplica_Subsidio', 'Califica para Mi Casa Ya'),
+        ]),
+        ('Variables objetivo', [
+          ('Nivel_Riesgo', 'Bajo / Medio / Alto (score)'),
+          ('Segmento_Cliente', '6 perfiles de cliente'),
+          ('Estado_Solicitud', 'Aprobado / En estudio / Rechazado'),
+        ])
+      ] %}
+      <div class="bg-card border border-bdr rounded-xl p-4">
+        <p class="text-[9px] font-bold uppercase tracking-widest text-acc mb-3">{{ grupo }}</p>
+        {% for nombre, desc in vars %}
+        <div class="mb-2.5 last:mb-0">
+          <p class="text-[11px] font-semibold text-slate-300">{{ nombre }}</p>
+          <p class="text-[10px] text-slate-600">{{ desc }}</p>
+        </div>
+        {% endfor %}
+      </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- ── HALLAZGOS ─────────────────────────────────────────── -->
+  <section>
+    <div class="flex items-center gap-3 mb-6">
+      <span class="text-[10px] font-black text-acc uppercase tracking-widest">04</span>
+      <div class="h-px flex-1 bg-bdr"></div>
+      <span class="text-[13px] font-bold text-slate-300 uppercase tracking-wide">Hallazgos principales</span>
+    </div>
+
+    <div class="grid grid-cols-2 gap-4">
+
+      <div class="bg-card border border-bdr rounded-xl p-5 flex gap-4">
+        <div class="text-[28px] font-black text-slate-100 leading-none shrink-0 w-20 text-right">79.1%</div>
+        <div>
+          <p class="text-[11px] font-semibold text-emerald-400 mb-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>Factor de aprobacion
+          </p>
+          <p class="text-[11px] text-slate-500 leading-relaxed">De los solicitantes con historial crediticio bueno resultan aprobados. Es el predictor mas fuerte del dataset.</p>
+        </div>
+      </div>
+
+      <div class="bg-card border border-bdr rounded-xl p-5 flex gap-4">
+        <div class="text-[28px] font-black text-slate-100 leading-none shrink-0 w-20 text-right">90%</div>
+        <div>
+          <p class="text-[11px] font-semibold text-rose-400 mb-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500"></span>Factor de rechazo
+          </p>
+          <p class="text-[11px] text-slate-500 leading-relaxed">De los contratos informales son rechazados. La informalidad laboral es el mayor obstaculo para acceder al credito hipotecario.</p>
+        </div>
+      </div>
+
+      <div class="bg-card border border-bdr rounded-xl p-5 flex gap-4">
+        <div class="text-[28px] font-black text-slate-100 leading-none shrink-0 w-20 text-right">30%</div>
+        <div>
+          <p class="text-[11px] font-semibold text-acc mb-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-acc"></span>Concentracion geografica
+          </p>
+          <p class="text-[11px] text-slate-500 leading-relaxed">De todas las solicitudes provienen de Bogota. Medellin concentra el 18% y Cali el 12%, reflejando la densidad urbana del pais.</p>
+        </div>
+      </div>
+
+      <div class="bg-card border border-bdr rounded-xl p-5 flex gap-4">
+        <div class="text-[28px] font-black text-slate-100 leading-none shrink-0 w-20 text-right">59%</div>
+        <div>
+          <p class="text-[11px] font-semibold text-slate-400 mb-1 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>Segmento dominante
+          </p>
+          <p class="text-[11px] text-slate-500 leading-relaxed">De los clientes clasifican como "Alta capacidad de pago". Refleja el sesgo del dataset fuente hacia ingresos altos (Kaggle).</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ── STACK ──────────────────────────────────────────────── -->
+  <section>
+    <div class="flex items-center gap-3 mb-6">
+      <span class="text-[10px] font-black text-acc uppercase tracking-widest">05</span>
+      <div class="h-px flex-1 bg-bdr"></div>
+      <span class="text-[13px] font-bold text-slate-300 uppercase tracking-wide">Implementacion tecnica</span>
+    </div>
+
+    <div class="grid grid-cols-4 gap-3">
+
+      <div class="bg-card border border-bdr rounded-xl p-4 text-center">
+        <div class="w-10 h-10 rounded-xl bg-acc/10 flex items-center justify-center mx-auto mb-3">
+          <i class="bi bi-server text-acc text-lg"></i>
+        </div>
+        <p class="text-[11px] font-bold text-slate-300">Flask + pandas</p>
+        <p class="text-[10px] text-slate-600 mt-1">Backend Python. API REST que filtra el dataset en memoria y devuelve JSON por solicitud.</p>
+      </div>
+
+      <div class="bg-card border border-bdr rounded-xl p-4 text-center">
+        <div class="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center mx-auto mb-3">
+          <i class="bi bi-bar-chart-line text-emerald-500 text-lg"></i>
+        </div>
+        <p class="text-[11px] font-bold text-slate-300">Plotly.js</p>
+        <p class="text-[10px] text-slate-600 mt-1">Graficas interactivas en el navegador. Cross-filtering por clic entre todos los paneles.</p>
+      </div>
+
+      <div class="bg-card border border-bdr rounded-xl p-4 text-center">
+        <div class="w-10 h-10 rounded-xl bg-amber-500/10 flex items-center justify-center mx-auto mb-3">
+          <i class="bi bi-layout-text-sidebar text-amber-500 text-lg"></i>
+        </div>
+        <p class="text-[11px] font-bold text-slate-300">Tailwind CSS</p>
+        <p class="text-[10px] text-slate-600 mt-1">Estilos utilitarios. Diseño responsivo sin hojas de estilo externas propias.</p>
+      </div>
+
+      <div class="bg-card border border-bdr rounded-xl p-4 text-center">
+        <div class="w-10 h-10 rounded-xl bg-rose-500/10 flex items-center justify-center mx-auto mb-3">
+          <i class="bi bi-geo-alt text-rose-400 text-lg"></i>
+        </div>
+        <p class="text-[11px] font-bold text-slate-300">Carto Dark Matter</p>
+        <p class="text-[10px] text-slate-600 mt-1">Mapa de burbujas por ciudad sobre tiles de Carto (sin token de API requerido).</p>
+      </div>
+
+    </div>
+
+    <!-- Architecture diagram simple -->
+    <div class="bg-card border border-bdr rounded-xl p-5 mt-3">
+      <p class="text-[10px] font-bold uppercase tracking-widest text-slate-700 mb-4">Flujo de datos</p>
+      <div class="flex items-center gap-0">
+
+        <div class="text-center">
+          <div class="bg-base border border-bdr rounded-lg px-4 py-2.5">
+            <i class="bi bi-file-earmark-text text-slate-600 block mb-1"></i>
+            <p class="text-[10px] text-slate-500 font-semibold">Kaggle CSV</p>
+            <p class="text-[9px] text-slate-700">32.581 filas</p>
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-col items-center">
+          <div class="h-px w-full bg-bdr relative">
+            <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] text-slate-700 bg-card px-2 whitespace-nowrap">adaptar.py · ETL</div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="bg-base border border-bdr rounded-lg px-4 py-2.5">
+            <i class="bi bi-table text-slate-600 block mb-1"></i>
+            <p class="text-[10px] text-slate-500 font-semibold">Dataset Colombia</p>
+            <p class="text-[9px] text-slate-700">28.628 · 22 cols</p>
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-col items-center">
+          <div class="h-px w-full bg-bdr relative">
+            <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] text-slate-700 bg-card px-2 whitespace-nowrap">app.py · Flask API</div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="bg-base border border-bdr rounded-lg px-4 py-2.5">
+            <i class="bi bi-braces text-acc block mb-1"></i>
+            <p class="text-[10px] text-slate-500 font-semibold">JSON filtrado</p>
+            <p class="text-[9px] text-slate-700">/api/data · /api/table</p>
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-col items-center">
+          <div class="h-px w-full bg-bdr relative">
+            <div class="absolute -top-2.5 left-1/2 -translate-x-1/2 text-[9px] text-slate-700 bg-card px-2 whitespace-nowrap">Plotly.js · render</div>
+          </div>
+        </div>
+
+        <div class="text-center">
+          <div class="bg-base border border-bdr rounded-lg px-4 py-2.5">
+            <i class="bi bi-display text-emerald-500 block mb-1"></i>
+            <p class="text-[10px] text-slate-500 font-semibold">Dashboard</p>
+            <p class="text-[9px] text-slate-700">index.html</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ─────────────────────────────────────────────────── -->
+  <section class="flex justify-center pt-4">
+    <a href="/"
+      class="flex items-center gap-3 bg-acc/10 border border-acc/30 hover:bg-acc/20 hover:border-acc/50 text-acc rounded-xl px-8 py-4 transition-all group">
+      <i class="bi bi-bar-chart-line-fill text-lg"></i>
+      <div class="text-left">
+        <p class="text-[13px] font-bold">Ir al dashboard interactivo</p>
+        <p class="text-[10px] text-acc/60">28.628 solicitudes · filtros en tiempo real</p>
+      </div>
+      <i class="bi bi-arrow-right group-hover:translate-x-1 transition-transform"></i>
+    </a>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer class="border-t border-bdr mt-8">
+  <div class="max-w-6xl mx-auto px-6 py-4 flex items-center justify-between">
+    <p class="text-[10px] text-slate-700">Business Analytics · Universidad de Cundinamarca · 2025</p>
+    <a href="https://github.com/AlejandroChabur/credito-vivienda" target="_blank"
+      class="text-[10px] text-slate-700 hover:text-acc transition-colors flex items-center gap-1.5">
+      <i class="bi bi-github"></i>
+      AlejandroChabur/credito-vivienda
+    </a>
+  </div>
+</footer>
+
+</body>
+</html>

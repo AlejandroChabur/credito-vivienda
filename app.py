@@ -83,6 +83,10 @@ def api_data():
         }
     })
 
+@app.route("/intro")
+def intro():
+    return render_template("intro.html")
+
 @app.route("/api/table")
 def api_table():
     d     = apply_filters(df)
