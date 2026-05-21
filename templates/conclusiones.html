@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Conclusiones · Credito Vivienda Colombia</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+tailwind.config = {
+  theme: {
+    extend: {
+      colors: {
+        base:  '#030812',
+        panel: '#07101f',
+        card:  '#0c1726',
+        bdr:   '#162030',
+        acc:   '#818cf8',
+      },
+      fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+    }
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+<style>
+  body { background:#030812; }
+  ::-webkit-scrollbar { width:4px; }
+  ::-webkit-scrollbar-track { background:transparent; }
+  ::-webkit-scrollbar-thumb { background:#1e2f45; border-radius:4px; }
+  .section-num {
+    font-size: 96px; font-weight: 900; line-height: 1;
+    color: rgba(129,140,248,.06); letter-spacing: -4px;
+    user-select: none;
+  }
+  .card-hover { transition: border-color .2s, box-shadow .2s; }
+  .card-hover:hover { border-color: rgba(129,140,248,.25); }
+  .stat-num { font-variant-numeric: tabular-nums; }
+  .hero-glow {
+    background: radial-gradient(ellipse 70% 50% at 90% 50%, rgba(129,140,248,.05) 0%, transparent 70%);
+  }
+</style>
+</head>
+<body class="font-sans text-slate-300 min-h-screen">
+
+<!-- NAV -->
+<nav class="sticky top-0 z-40 bg-panel/90 backdrop-blur border-b border-bdr">
+  <div class="max-w-6xl mx-auto px-6 flex items-center justify-between" style="height:52px">
+    <div class="flex items-center gap-2.5">
+      <div class="w-6 h-6 rounded-md bg-gradient-to-br from-indigo-500 to-indigo-800 flex items-center justify-center shrink-0">
+        <i class="bi bi-house-fill text-white text-[10px]"></i>
+      </div>
+      <span class="text-[13px] font-bold text-white">Credito Vivienda</span>
+      <span class="text-bdr mx-1 text-lg font-thin">·</span>
+      <span class="text-[11px] text-acc font-medium">Colombia</span>
+    </div>
+    <div class="flex items-center gap-0.5 bg-card border border-bdr rounded-lg p-0.5">
+      <a href="/intro"   class="px-3 py-1.5 text-[11px] font-medium text-slate-500 hover:text-slate-300 rounded-md transition-colors">Introduccion</a>
+      <a href="/"        class="px-3 py-1.5 text-[11px] font-medium text-slate-500 hover:text-slate-300 rounded-md transition-colors">Dashboard</a>
+      <a href="/conclusiones" class="px-3 py-1.5 text-[11px] font-semibold text-white bg-acc/15 rounded-md">Conclusiones</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero-glow max-w-6xl mx-auto px-6 pt-16 pb-12">
+  <p class="text-[10px] font-bold uppercase tracking-[.2em] text-acc mb-5 flex items-center gap-2">
+    <span class="w-4 h-px bg-acc/40 inline-block"></span>
+    Business Analytics · Unicundinamarca 2026
+  </p>
+  <h1 class="text-[44px] font-black text-white leading-[1.1] tracking-tight max-w-3xl mb-5">
+    Lo que los datos<br>
+    nos dijeron sobre el<br>
+    <span class="text-acc">credito de vivienda</span>
+  </h1>
+  <p class="text-slate-500 text-[15px] max-w-2xl leading-relaxed">
+    Despues de analizar 28.628 solicitudes hipotecarias colombianas, tres variables concentran la mayor parte del poder predictivo de aprobacion. Aqui estan las conclusiones del estudio.
+  </p>
+
+  <!-- Resumen rapido -->
+  <div class="mt-10 grid grid-cols-3 gap-3">
+    <div class="bg-card border border-bdr border-l-2 border-l-emerald-600 rounded-xl px-5 py-4">
+      <p class="text-[9px] font-bold uppercase tracking-widest text-emerald-500 mb-2">Conclusion clave</p>
+      <p class="text-[13px] text-slate-300 leading-snug font-medium">El historial crediticio es el predictor mas fuerte de aprobacion en el mercado hipotecario colombiano.</p>
+    </div>
+    <div class="bg-card border border-bdr border-l-2 border-l-rose-600 rounded-xl px-5 py-4">
+      <p class="text-[9px] font-bold uppercase tracking-widest text-rose-400 mb-2">Brecha identificada</p>
+      <p class="text-[13px] text-slate-300 leading-snug font-medium">La informalidad laboral excluye practicamente en su totalidad a millones de colombianos del sistema hipotecario.</p>
+    </div>
+    <div class="bg-card border border-bdr border-l-2 border-l-acc rounded-xl px-5 py-4">
+      <p class="text-[9px] font-bold uppercase tracking-widest text-acc mb-2">Aporte del proyecto</p>
+      <p class="text-[13px] text-slate-300 leading-snug font-medium">El dashboard permite explorar estos patrones en tiempo real con filtros encadenados y cross-filtering interactivo.</p>
+    </div>
+  </div>
+</section>
+
+<div class="max-w-6xl mx-auto px-6 space-y-16 pb-24">
+
+  <!-- CONCLUSIONES PRINCIPALES -->
+  <section>
+    <div class="flex items-end gap-4 mb-8">
+      <span class="section-num leading-none -mb-2">01</span>
+      <div>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-acc mb-0.5">Conclusiones</p>
+        <h2 class="text-[18px] font-bold text-slate-200">Hallazgos con respaldo empirico</h2>
+      </div>
+    </div>
+
+    <div class="space-y-3">
+
+      <!-- C1 -->
+      <div class="bg-card border border-bdr rounded-xl p-6 card-hover flex gap-6 items-start">
+        <div class="shrink-0 text-center w-16">
+          <p class="stat-num text-[38px] font-black text-emerald-400 leading-none">79%</p>
+          <p class="text-[8px] text-slate-700 uppercase tracking-wide mt-1">aprobados</p>
+        </div>
+        <div class="flex-1 border-l border-bdr pl-6">
+          <p class="text-[13px] font-bold text-slate-200 mb-2">
+            C1 — El historial crediticio es el predictor dominante de aprobacion
+          </p>
+          <p class="text-[12px] text-slate-500 leading-relaxed">
+            El 79.1% de los solicitantes con historial crediticio <span class="text-slate-400 font-medium">Bueno</span> obtienen aprobacion, mientras que quienes tienen historial <span class="text-slate-400 font-medium">Malo</span> son rechazados en proporcion inversa. Esta variable concentra mas poder predictivo que el nivel de ingresos o el monto solicitado. Implica que los bancos colombianos priorizan la reputacion crediticia pasada por encima de la capacidad economica presente, lo cual tiene impacto sobre primeros compradores jovenes sin historial.
+          </p>
+        </div>
+      </div>
+
+      <!-- C2 -->
+      <div class="bg-card border border-bdr rounded-xl p-6 card-hover flex gap-6 items-start">
+        <div class="shrink-0 text-center w-16">
+          <p class="stat-num text-[38px] font-black text-rose-400 leading-none">90%</p>
+          <p class="text-[8px] text-slate-700 uppercase tracking-wide mt-1">rechazados</p>
+        </div>
+        <div class="flex-1 border-l border-bdr pl-6">
+          <p class="text-[13px] font-bold text-slate-200 mb-2">
+            C2 — La informalidad laboral es la mayor barrera de exclusion financiera
+          </p>
+          <p class="text-[12px] text-slate-500 leading-relaxed">
+            Aproximadamente el 90% de los contratos <span class="text-slate-400 font-medium">Informales</span> son rechazados, frente a tasas de aprobacion elevadas para contratos <span class="text-slate-400 font-medium">Indefinidos</span>. Segun el DANE, el 57% de la fuerza laboral colombiana es informal. Esto significa que mas de la mitad de los trabajadores del pais enfrenta una barrera estructural para acceder al credito hipotecario formal, independientemente de su capacidad de pago real.
+          </p>
+        </div>
+      </div>
+
+      <!-- C3 -->
+      <div class="bg-card border border-bdr rounded-xl p-6 card-hover flex gap-6 items-start">
+        <div class="shrink-0 text-center w-16">
+          <p class="stat-num text-[38px] font-black text-acc leading-none">60%</p>
+          <p class="text-[8px] text-slate-700 uppercase tracking-wide mt-1">3 ciudades</p>
+        </div>
+        <div class="flex-1 border-l border-bdr pl-6">
+          <p class="text-[13px] font-bold text-slate-200 mb-2">
+            C3 — El credito hipotecario formal esta geograficamente concentrado
+          </p>
+          <p class="text-[12px] text-slate-500 leading-relaxed">
+            Bogota (30%), Medellin (18%) y Cali (12%) concentran el 60% de todas las solicitudes. Las 12 ciudades restantes se reparten el 40% restante. Esta concentracion refleja tanto la densidad demografica como el acceso desigual al sistema financiero formal en regiones intermedias y departamentos con mayor ruralidad, donde la informalidad laboral es ademas mas elevada.
+          </p>
+        </div>
+      </div>
+
+      <!-- C4 -->
+      <div class="bg-card border border-bdr rounded-xl p-6 card-hover flex gap-6 items-start">
+        <div class="shrink-0 text-center w-16">
+          <p class="stat-num text-[38px] font-black text-amber-400 leading-none">133</p>
+          <p class="text-[8px] text-slate-700 uppercase tracking-wide mt-1">subsidios</p>
+        </div>
+        <div class="flex-1 border-l border-bdr pl-6">
+          <p class="text-[13px] font-bold text-slate-200 mb-2">
+            C4 — El programa Mi Casa Ya tiene un alcance acotado dentro del dataset
+          </p>
+          <p class="text-[12px] text-slate-500 leading-relaxed">
+            Solo 133 de 28.628 solicitudes (0.46%) cumplen simultaneamente los dos criterios del programa: ingresos mensuales ≤ 5.2M COP <span class="text-slate-500 font-medium">y</span> tipo de vivienda VIS. El dataset presenta sesgo hacia ingresos altos (herencia del dataset fuente estadounidense), lo que subestima el alcance real del programa en Colombia. No obstante, el dato evidencia que las dos condiciones raramente coexisten en el perfil de solicitante analizado.
+          </p>
+        </div>
+      </div>
+
+      <!-- C5 -->
+      <div class="bg-card border border-bdr rounded-xl p-6 card-hover flex gap-6 items-start">
+        <div class="shrink-0 text-center w-16">
+          <p class="stat-num text-[38px] font-black text-slate-300 leading-none">6</p>
+          <p class="text-[8px] text-slate-700 uppercase tracking-wide mt-1">segmentos</p>
+        </div>
+        <div class="flex-1 border-l border-bdr pl-6">
+          <p class="text-[13px] font-bold text-slate-200 mb-2">
+            C5 — La segmentacion revela perfiles de riesgo diferenciados y accionables
+          </p>
+          <p class="text-[12px] text-slate-500 leading-relaxed">
+            Los 6 segmentos identificados muestran distribuciones de aprobacion muy distintas. <span class="text-slate-400 font-medium">Alta capacidad de pago</span> domina con el 59% de los registros y la mayor tasa de aprobacion. <span class="text-slate-400 font-medium">Historial crediticio limitado</span> e <span class="text-slate-400 font-medium">Independiente e ingreso variable</span> presentan los perfiles mas vulnerables. Esta segmentacion es util para que las entidades financieras diseñen productos diferenciados por perfil de cliente.
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- RECOMENDACIONES -->
+  <section>
+    <div class="flex items-end gap-4 mb-8">
+      <span class="section-num leading-none -mb-2">02</span>
+      <div>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-acc mb-0.5">Recomendaciones</p>
+        <h2 class="text-[18px] font-bold text-slate-200">Implicaciones de politica y practica</h2>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-2 gap-3">
+
+      <div class="bg-card border border-bdr border-l-2 border-l-acc rounded-xl p-5 card-hover">
+        <div class="flex items-center gap-2.5 mb-3">
+          <div class="w-7 h-7 rounded-lg bg-acc/10 border border-acc/20 flex items-center justify-center shrink-0">
+            <i class="bi bi-bank2 text-acc text-xs"></i>
+          </div>
+          <p class="text-[12px] font-bold text-slate-300">Para entidades financieras</p>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-relaxed">
+          Diseñar productos hipotecarios con criterios alternativos de evaluacion para trabajadores independientes e informales: historial de pagos de arriendo, servicios publicos y recargas de celular como proxies de capacidad de pago. Esto amplıa el mercado potencial sin incrementar el riesgo de cartera.
+        </p>
+      </div>
+
+      <div class="bg-card border border-bdr border-l-2 border-l-emerald-600 rounded-xl p-5 card-hover">
+        <div class="flex items-center gap-2.5 mb-3">
+          <div class="w-7 h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center shrink-0">
+            <i class="bi bi-building-check text-emerald-500 text-xs"></i>
+          </div>
+          <p class="text-[12px] font-bold text-slate-300">Para el gobierno colombiano</p>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-relaxed">
+          Ampliar Mi Casa Ya para incluir mecanismos de acceso para trabajadores informales con ingresos demostrables por vias alternativas. La exclusion del 57% de la fuerza laboral informal del sistema hipotecario formal es incompatible con los objetivos de reduccion del deficit habitacional del pais.
+        </p>
+      </div>
+
+      <div class="bg-card border border-bdr border-l-2 border-l-amber-500 rounded-xl p-5 card-hover">
+        <div class="flex items-center gap-2.5 mb-3">
+          <div class="w-7 h-7 rounded-lg bg-amber-500/10 border border-amber-500/20 flex items-center justify-center shrink-0">
+            <i class="bi bi-graph-up text-amber-500 text-xs"></i>
+          </div>
+          <p class="text-[12px] font-bold text-slate-300">Para analistas de riesgo</p>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-relaxed">
+          El historial crediticio y el tipo de contrato deben mantenerse como variables clave en cualquier modelo de scoring hipotecario. Un modelo predictivo (ML) sobre este dataset podria complementar el analisis descriptivo con prediccion de probabilidad de aprobacion individual.
+        </p>
+      </div>
+
+      <div class="bg-card border border-bdr border-l-2 border-l-rose-600 rounded-xl p-5 card-hover">
+        <div class="flex items-center gap-2.5 mb-3">
+          <div class="w-7 h-7 rounded-lg bg-rose-500/10 border border-rose-500/20 flex items-center justify-center shrink-0">
+            <i class="bi bi-journal-text text-rose-400 text-xs"></i>
+          </div>
+          <p class="text-[12px] font-bold text-slate-300">Para futuras investigaciones</p>
+        </div>
+        <p class="text-[11px] text-slate-600 leading-relaxed">
+          El siguiente paso natural es construir un modelo supervisado (regresion logistica o arboles de decision) que prediga la probabilidad de aprobacion de un solicitante nuevo. Tambien seria valioso replicar el analisis con datos reales de una entidad financiera colombiana para validar los patrones observados.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- REFLEXION FINAL -->
+  <section>
+    <div class="flex items-end gap-4 mb-8">
+      <span class="section-num leading-none -mb-2">03</span>
+      <div>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-acc mb-0.5">Reflexion</p>
+        <h2 class="text-[18px] font-bold text-slate-200">Que aporta este proyecto</h2>
+      </div>
+    </div>
+
+    <div class="bg-card border border-bdr rounded-xl p-8 mb-3">
+      <p class="text-[16px] text-slate-300 leading-relaxed max-w-3xl font-medium mb-6">
+        "El mercado hipotecario colombiano no es inaccesible por falta de oferta — es inaccesible por la forma en que se evalua al solicitante. El contrato laboral y el historial crediticio actuan como filtros que, en un pais con alta informalidad, excluyen a la mayoria antes de que el banco analice su capacidad de pago real."
+      </p>
+      <p class="text-[11px] text-slate-600">— Conclusion del analisis exploratorio · 28.628 solicitudes · 2026</p>
+    </div>
+
+    <div class="grid grid-cols-3 gap-3">
+      <div class="bg-card border border-bdr rounded-xl p-5 card-hover text-center">
+        <i class="bi bi-bar-chart-line-fill text-acc text-2xl mb-3 block"></i>
+        <p class="text-[12px] font-bold text-slate-300 mb-2">Dashboard interactivo</p>
+        <p class="text-[11px] text-slate-600 leading-relaxed">Herramienta que permite a cualquier analista explorar los datos sin codigo, aplicando filtros en tiempo real y observando como cambian los patrones.</p>
+      </div>
+      <div class="bg-card border border-bdr rounded-xl p-5 card-hover text-center">
+        <i class="bi bi-layers text-emerald-500 text-2xl mb-3 block"></i>
+        <p class="text-[12px] font-bold text-slate-300 mb-2">Metodologia replicable</p>
+        <p class="text-[11px] text-slate-600 leading-relaxed">El proceso ETL de adaptacion de un dataset internacional al contexto colombiano es replicable para otros mercados latinoamericanos con datasets publicos disponibles.</p>
+      </div>
+      <div class="bg-card border border-bdr rounded-xl p-5 card-hover text-center">
+        <i class="bi bi-github text-slate-400 text-2xl mb-3 block"></i>
+        <p class="text-[12px] font-bold text-slate-300 mb-2">Codigo abierto</p>
+        <p class="text-[11px] text-slate-600 leading-relaxed">Todo el proyecto — dataset adaptado, backend Flask y frontend — esta disponible publicamente en GitHub para reproduccion y extension del analisis.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTAs -->
+  <section class="grid grid-cols-2 gap-3 pb-4">
+    <a href="/" class="flex items-center gap-4 bg-card border border-bdr hover:border-acc/30 rounded-xl px-6 py-5 transition-all group">
+      <div class="w-10 h-10 rounded-lg bg-acc/10 border border-acc/20 flex items-center justify-center shrink-0 group-hover:bg-acc/15 transition-colors">
+        <i class="bi bi-bar-chart-line-fill text-acc"></i>
+      </div>
+      <div>
+        <p class="text-[13px] font-bold text-slate-200">Dashboard interactivo</p>
+        <p class="text-[11px] text-slate-600 mt-0.5">Explorar los 28.628 registros con filtros en tiempo real</p>
+      </div>
+      <i class="bi bi-arrow-right text-slate-600 group-hover:text-acc group-hover:translate-x-1 transition-all ml-auto"></i>
+    </a>
+    <a href="/intro" class="flex items-center gap-4 bg-card border border-bdr hover:border-acc/30 rounded-xl px-6 py-5 transition-all group">
+      <div class="w-10 h-10 rounded-lg bg-acc/10 border border-acc/20 flex items-center justify-center shrink-0 group-hover:bg-acc/15 transition-colors">
+        <i class="bi bi-journal-richtext text-acc"></i>
+      </div>
+      <div>
+        <p class="text-[13px] font-bold text-slate-200">Ver introduccion y metodologia</p>
+        <p class="text-[11px] text-slate-600 mt-0.5">Contexto, objetivos, ETL y marco conceptual</p>
+      </div>
+      <i class="bi bi-arrow-right text-slate-600 group-hover:text-acc group-hover:translate-x-1 transition-all ml-auto"></i>
+    </a>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer class="border-t border-bdr">
+  <div class="max-w-6xl mx-auto px-6 py-5 flex items-center justify-between">
+    <p class="text-[10px] text-slate-700">Business Analytics · Universidad de Cundinamarca · 2026</p>
+    <a href="https://github.com/AlejandroChabur/credito-vivienda" target="_blank"
+      class="text-[10px] text-slate-700 hover:text-acc transition-colors flex items-center gap-1.5">
+      <i class="bi bi-github"></i>AlejandroChabur/credito-vivienda
+    </a>
+  </div>
+</footer>
+
+</body>
+</html>

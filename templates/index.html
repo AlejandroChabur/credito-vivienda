@@ -1,727 +1,781 @@
 <!DOCTYPE html>
 <html lang="es" class="h-full">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Credito Vivienda · Colombia</title>
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-tailwind.config = {
-  theme: {
-    extend: {
-      colors: {
-        base:  '#030812',
-        panel: '#07101f',
-        card:  '#0c1726',
-        bdr:   '#162030',
-        acc:   '#818cf8',
-      },
-      fontFamily: { sans: ['Inter','system-ui','sans-serif'] }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Credito Vivienda · Colombia</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            base: '#030812',
+            panel: '#07101f',
+            card: '#0c1726',
+            bdr: '#162030',
+            acc: '#818cf8',
+          },
+          fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] }
+        }
+      }
     }
-  }
-}
-</script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
-<script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
-<style>
-  body { background:#030812; }
-  select option { background:#0c1726; color:#cbd5e1; }
-  ::-webkit-scrollbar { width:4px; height:4px; }
-  ::-webkit-scrollbar-track { background:transparent; }
-  ::-webkit-scrollbar-thumb { background:#1e2f45; border-radius:4px; }
-  .spin { animation:spin .7s linear infinite; }
-  @keyframes spin { to { transform:rotate(360deg); } }
-  .fsel {
-    -webkit-appearance:none; appearance:none;
-    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%2364748b' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
-    background-repeat:no-repeat; background-position:right 10px center;
-  }
-  .clickable { cursor:pointer; }
-  .clickable:hover .hint { opacity:1; }
-  .hint { opacity:0.3; transition:opacity .2s; }
-  .active-filter {
-    border-color:rgba(129,140,248,.5) !important;
-    box-shadow:0 0 0 1px rgba(129,140,248,.12);
-  }
-</style>
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+  <style>
+    body {
+      background: #030812;
+    }
+
+    select option {
+      background: #0c1726;
+      color: #cbd5e1;
+    }
+
+    ::-webkit-scrollbar {
+      width: 4px;
+      height: 4px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: #1e2f45;
+      border-radius: 4px;
+    }
+
+    .spin {
+      animation: spin .7s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    .fsel {
+      -webkit-appearance: none;
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath fill='%2364748b' d='M0 0l5 6 5-6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 10px center;
+    }
+
+    .clickable {
+      cursor: pointer;
+    }
+
+    .clickable:hover .hint {
+      opacity: 1;
+    }
+
+    .hint {
+      opacity: 0.3;
+      transition: opacity .2s;
+    }
+
+    .active-filter {
+      border-color: rgba(129, 140, 248, .5) !important;
+      box-shadow: 0 0 0 1px rgba(129, 140, 248, .12);
+    }
+  </style>
 </head>
+
 <body class="font-sans text-slate-300 h-full overflow-hidden flex">
 
-<!-- LOADER -->
-<div id="loader" class="fixed inset-0 bg-base z-50 flex flex-col items-center justify-center gap-3">
-  <div class="relative w-10 h-10">
-    <div class="absolute inset-0 rounded-full border-2 border-bdr spin border-t-acc"></div>
-    <div class="absolute inset-0 flex items-center justify-center text-acc text-sm">
-      <i class="bi bi-house-fill"></i>
-    </div>
-  </div>
-  <p class="text-sm text-slate-500">Cargando...</p>
-</div>
-
-<!-- ══ SIDEBAR ══════════════════════════════════════════════════ -->
-<aside class="w-52 min-w-[208px] bg-panel border-r border-bdr flex flex-col h-screen overflow-y-auto shrink-0">
-
-  <div class="px-4 py-4 border-b border-bdr">
-    <div class="flex items-center gap-2.5">
-      <div class="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-800 flex items-center justify-center shrink-0">
-        <i class="bi bi-house-fill text-white text-[11px]"></i>
+  <!-- LOADER -->
+  <div id="loader" class="fixed inset-0 bg-base z-50 flex flex-col items-center justify-center gap-3">
+    <div class="relative w-10 h-10">
+      <div class="absolute inset-0 rounded-full border-2 border-bdr spin border-t-acc"></div>
+      <div class="absolute inset-0 flex items-center justify-center text-acc text-sm">
+        <i class="bi bi-house-fill"></i>
       </div>
+    </div>
+    <p class="text-sm text-slate-500">Cargando...</p>
+  </div>
+
+  <!-- ══ SIDEBAR ══════════════════════════════════════════════════ -->
+  <aside class="w-52 min-w-[208px] bg-panel border-r border-bdr flex flex-col h-screen overflow-y-auto shrink-0">
+
+    <div class="px-4 py-4 border-b border-bdr">
+      <div class="flex items-center gap-2.5">
+        <div
+          class="w-7 h-7 rounded-lg bg-gradient-to-br from-indigo-500 to-indigo-800 flex items-center justify-center shrink-0">
+          <i class="bi bi-house-fill text-white text-[11px]"></i>
+        </div>
+        <div>
+          <p class="text-[13px] font-bold text-white leading-none">Credito Vivienda</p>
+          <p class="text-[10px] text-acc font-medium">Colombia</p>
+        </div>
+      </div>
+      <p class="text-[10px] text-slate-700 mt-2.5 leading-relaxed">Business Analytics · Unicundinamarca 2026</p>
+    </div>
+
+    <!-- Nav tabs -->
+    <div class="px-3 pt-3 pb-2 border-b border-bdr flex flex-col gap-1">
+      <a href="/intro"        class="text-[10px] font-semibold text-slate-500 hover:text-slate-300 py-1.5 px-2 rounded-lg hover:bg-card transition-colors">Introduccion</a>
+      <span                   class="text-[10px] font-bold text-acc py-1.5 px-2 rounded-lg bg-card">Dashboard</span>
+      <a href="/conclusiones" class="text-[10px] font-semibold text-slate-500 hover:text-slate-300 py-1.5 px-2 rounded-lg hover:bg-card transition-colors">Conclusiones</a>
+    </div>
+
+    <!-- Filtros -->
+    <div class="px-3 py-3 border-b border-bdr space-y-2">
+      <p class="text-[9px] font-bold uppercase tracking-widest text-slate-700 mb-2 flex items-center gap-1.5">
+        <i class="bi bi-sliders2"></i>Filtros
+      </p>
+
+      {% for fid, label, placeholder, opts in [
+      ('ciudad', 'Ciudad', 'Todas', None),
+      ('estado', 'Estado', 'Todos', [('Aprobado','Aprobado'),('Rechazado','Rechazado'),('En estudio','En estudio')]),
+      ('riesgo', 'Riesgo', 'Todos', [('Bajo','Bajo'),('Medio','Medio'),('Alto','Alto')]),
+      ('contrato', 'Contrato', 'Todos', None),
+      ('vivienda', 'Vivienda', 'Todas', [('VIS','VIS'),('No VIS','No VIS')]),
+      ('mora', 'Mora previa', 'Todos', [('No','Sin mora'),('Sí','Con mora')])
+      ] %}
       <div>
-        <p class="text-[13px] font-bold text-white leading-none">Credito Vivienda</p>
-        <p class="text-[10px] text-acc font-medium">Colombia</p>
-      </div>
-    </div>
-    <p class="text-[10px] text-slate-700 mt-2.5 leading-relaxed">Business Analytics · Unicundinamarca 2025</p>
-  </div>
-
-  <!-- Nav tabs -->
-  <div class="px-3 pt-3 pb-2 border-b border-bdr flex gap-1.5">
-    <a href="/intro" class="flex-1 text-center text-[10px] font-semibold text-slate-500 hover:text-slate-300 py-1.5 rounded-lg hover:bg-card transition-colors">Introducción</a>
-    <span class="flex-1 text-center text-[10px] font-bold text-acc py-1.5 rounded-lg bg-card">Dashboard</span>
-  </div>
-
-  <!-- Filtros -->
-  <div class="px-3 py-3 border-b border-bdr space-y-2">
-    <p class="text-[9px] font-bold uppercase tracking-widest text-slate-700 mb-2 flex items-center gap-1.5">
-      <i class="bi bi-sliders2"></i>Filtros
-    </p>
-
-    {% for fid, label, placeholder, opts in [
-      ('ciudad',   'Ciudad',      'Todas',    None),
-      ('estado',   'Estado',      'Todos',    [('Aprobado','Aprobado'),('Rechazado','Rechazado'),('En estudio','En estudio')]),
-      ('riesgo',   'Riesgo',      'Todos',    [('Bajo','Bajo'),('Medio','Medio'),('Alto','Alto')]),
-      ('contrato', 'Contrato',    'Todos',    None),
-      ('vivienda', 'Vivienda',    'Todas',    [('VIS','VIS'),('No VIS','No VIS')]),
-      ('mora',     'Mora previa', 'Todos',    [('No','Sin mora'),('Sí','Con mora')])
-    ] %}
-    <div>
-      <label class="block text-[9px] text-slate-600 font-semibold mb-1 uppercase tracking-wide">{{ label }}</label>
-      <select id="f-{{ fid }}" onchange="fetchData()"
-        class="fsel w-full bg-card border border-bdr text-slate-400 text-[11px] rounded-lg px-2.5 py-1.5
+        <label class="block text-[9px] text-slate-600 font-semibold mb-1 uppercase tracking-wide">{{ label }}</label>
+        <select id="f-{{ fid }}" onchange="fetchData()" class="fsel w-full bg-card border border-bdr text-slate-400 text-[11px] rounded-lg px-2.5 py-1.5
                focus:outline-none focus:border-acc cursor-pointer transition-colors">
-        <option value="">{{ placeholder }}</option>
-        {% if opts %}
+          <option value="">{{ placeholder }}</option>
+          {% if opts %}
           {% for val, lbl in opts %}<option value="{{ val }}">{{ lbl }}</option>{% endfor %}
-        {% elif fid == 'ciudad' %}
+          {% elif fid == 'ciudad' %}
           {% for c in ciudades %}<option>{{ c }}</option>{% endfor %}
-        {% elif fid == 'contrato' %}
+          {% elif fid == 'contrato' %}
           {% for c in contratos %}<option>{{ c }}</option>{% endfor %}
-        {% endif %}
-      </select>
-    </div>
-    {% endfor %}
+          {% endif %}
+        </select>
+      </div>
+      {% endfor %}
 
-    <div id="chips" class="flex flex-wrap gap-1 pt-1"></div>
-    <button id="btn-clear" onclick="resetFilters()"
-      class="hidden w-full mt-1 text-[10px] text-slate-600 border border-bdr rounded-lg py-1.5
+      <div id="chips" class="flex flex-wrap gap-1 pt-1"></div>
+      <button id="btn-clear" onclick="resetFilters()" class="hidden w-full mt-1 text-[10px] text-slate-600 border border-bdr rounded-lg py-1.5
              hover:border-rose-500/30 hover:text-rose-400 transition-colors">
-      <i class="bi bi-x-circle mr-1"></i>Limpiar
-    </button>
-  </div>
-
-  <!-- Totales -->
-  <div class="px-3 py-3 flex-1">
-    <p class="text-[9px] font-bold uppercase tracking-widest text-slate-700 mb-3 flex items-center gap-1.5">
-      <i class="bi bi-bar-chart-line"></i>Totales
-    </p>
-    <div class="space-y-2.5">
-      <div class="flex justify-between items-center">
-        <span class="text-[11px] text-slate-600">Aprobados</span>
-        <span class="text-[11px] font-bold text-emerald-500" id="s-apr">-</span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="text-[11px] text-slate-600">En estudio</span>
-        <span class="text-[11px] font-bold text-amber-500" id="s-est">-</span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="text-[11px] text-slate-600">Rechazados</span>
-        <span class="text-[11px] font-bold text-rose-500" id="s-rec">-</span>
-      </div>
-      <div class="w-full h-px bg-bdr"></div>
-      <div class="flex justify-between items-center">
-        <span class="text-[11px] text-slate-600">Mi Casa Ya</span>
-        <span class="text-[11px] font-semibold text-acc" id="s-sub">-</span>
-      </div>
-      <div class="flex justify-between items-center">
-        <span class="text-[11px] text-slate-600">Ing. promedio</span>
-        <span class="text-[11px] font-semibold text-slate-300" id="s-ing">-</span>
-      </div>
-    </div>
-  </div>
-</aside>
-
-<!-- ══ MAIN ════════════════════════════════════════════════════ -->
-<div class="flex-1 flex flex-col overflow-hidden h-screen min-w-0">
-
-  <!-- Topbar -->
-  <div class="bg-panel border-b border-bdr px-5 py-2.5 flex items-center justify-between shrink-0">
-    <div>
-      <h1 class="text-sm font-bold text-white tracking-tight">Perfilacion de Clientes — Credito de Vivienda</h1>
-      <p class="text-[11px] text-slate-700 mt-0.5">Colombia · <span id="cnt">0</span> solicitudes</p>
-    </div>
-    <div id="loading-dot" class="hidden w-1.5 h-1.5 rounded-full bg-acc animate-pulse"></div>
-  </div>
-
-  <!-- Contenido scrollable -->
-  <div class="flex-1 overflow-y-auto p-3 space-y-3">
-
-    <!-- ① KPIs — barra única horizontal -->
-    <div class="bg-card border border-bdr rounded-xl flex items-stretch divide-x divide-bdr">
-
-      <div class="flex-1 px-5 py-4">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Total</p>
-        <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-total">-</p>
-        <p class="text-[10px] text-slate-700 mt-1.5">solicitudes</p>
-      </div>
-
-      <div class="flex-1 px-5 py-4">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Aprobados</p>
-        <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-apr">-</p>
-        <p class="text-[10px] text-emerald-600/80 mt-1.5 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
-          <span id="k-apr-abs">-</span>
-        </p>
-      </div>
-
-      <div class="flex-1 px-5 py-4">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Rechazados</p>
-        <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-rec">-</p>
-        <p class="text-[10px] text-rose-600/80 mt-1.5 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>
-          <span id="k-rec-abs">-</span>
-        </p>
-      </div>
-
-      <div class="flex-1 px-5 py-4">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Mi Casa Ya</p>
-        <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-sub">-</p>
-        <p class="text-[10px] text-acc/60 mt-1.5 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-acc shrink-0"></span>
-          <span id="k-sub-abs">-</span>
-        </p>
-      </div>
-
-      <div class="flex-1 px-5 py-4">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Ing. promedio</p>
-        <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-ing">-</p>
-        <p class="text-[10px] text-slate-700 mt-1.5">millones COP / mes</p>
-      </div>
-
+        <i class="bi bi-x-circle mr-1"></i>Limpiar
+      </button>
     </div>
 
-    <!-- ① Predictores clave -->
-    <div class="grid grid-cols-4 gap-2.5">
-
-      <div class="bg-card border border-bdr rounded-xl px-4 py-3.5">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-3">Historial crediticio bueno</p>
-        <p class="text-[30px] font-black text-slate-100 leading-none tracking-tight" id="ins-hist-bueno">-</p>
-        <p class="text-[10px] text-emerald-500/70 mt-2 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>de solicitudes aprobadas
-        </p>
-      </div>
-
-      <div class="bg-card border border-bdr rounded-xl px-4 py-3.5">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-3">Contrato indefinido</p>
-        <p class="text-[30px] font-black text-slate-100 leading-none tracking-tight" id="ins-contrato-ind">-</p>
-        <p class="text-[10px] text-emerald-500/70 mt-2 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>de solicitudes aprobadas
-        </p>
-      </div>
-
-      <div class="bg-card border border-bdr rounded-xl px-4 py-3.5">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-3">Con mora previa</p>
-        <p class="text-[30px] font-black text-slate-100 leading-none tracking-tight" id="ins-mora-rec">-</p>
-        <p class="text-[10px] text-rose-500/70 mt-2 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>de solicitudes rechazadas
-        </p>
-      </div>
-
-      <div class="bg-card border border-bdr rounded-xl px-4 py-3.5">
-        <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-3">Contrato informal</p>
-        <p class="text-[30px] font-black text-slate-100 leading-none tracking-tight" id="ins-contrato-inf">-</p>
-        <p class="text-[10px] text-rose-500/70 mt-2 flex items-center gap-1.5">
-          <span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>de solicitudes rechazadas
-        </p>
-      </div>
-
-    </div>
-
-    <!-- ② Estado + Historial -->
-    <div class="grid grid-cols-[1fr_1.7fr] gap-2.5">
-
-      <div class="bg-card border border-bdr rounded-xl p-4 clickable" id="wrap-estado">
-        <div class="flex items-center justify-between mb-3">
-          <p class="text-[11px] font-semibold text-slate-300">Estado de solicitudes</p>
-          <span class="hint flex items-center gap-1 text-[9px] text-acc"><i class="bi bi-cursor-fill"></i>clic</span>
+    <!-- Totales -->
+    <div class="px-3 py-3 flex-1">
+      <p class="text-[9px] font-bold uppercase tracking-widest text-slate-700 mb-3 flex items-center gap-1.5">
+        <i class="bi bi-bar-chart-line"></i>Totales
+      </p>
+      <div class="space-y-2.5">
+        <div class="flex justify-between items-center">
+          <span class="text-[11px] text-slate-600">Aprobados</span>
+          <span class="text-[11px] font-bold text-emerald-500" id="s-apr">-</span>
         </div>
-        <div id="c-estado" style="height:190px"></div>
-      </div>
-
-      <div class="bg-card border border-bdr rounded-xl p-4">
-        <p class="text-[11px] font-semibold text-slate-300 mb-3">Historial crediticio vs resultado</p>
-        <div id="c-historial-estado" style="height:190px"></div>
-      </div>
-
-    </div>
-
-    <!-- ③ Contrato + Ingresos -->
-    <div class="grid grid-cols-2 gap-2.5">
-
-      <div class="bg-card border border-bdr rounded-xl p-4 clickable" id="wrap-contrato">
-        <div class="flex items-center justify-between mb-3">
-          <p class="text-[11px] font-semibold text-slate-300">Tipo de contrato vs resultado</p>
-          <span class="hint flex items-center gap-1 text-[9px] text-acc"><i class="bi bi-cursor-fill"></i>clic</span>
+        <div class="flex justify-between items-center">
+          <span class="text-[11px] text-slate-600">En estudio</span>
+          <span class="text-[11px] font-bold text-amber-500" id="s-est">-</span>
         </div>
-        <div id="c-contrato-estado" style="height:185px"></div>
-      </div>
-
-      <div class="bg-card border border-bdr rounded-xl p-4">
-        <p class="text-[11px] font-semibold text-slate-300 mb-3">Distribucion de ingresos mensuales (MCOP)</p>
-        <div id="c-ing-hist" style="height:185px"></div>
-      </div>
-
-    </div>
-
-    <!-- ④ Mapa + Segmentos -->
-    <div class="grid grid-cols-2 gap-2.5">
-
-      <div class="bg-card border border-bdr rounded-xl p-4 clickable" id="wrap-mapa">
-        <div class="flex items-center justify-between mb-3">
-          <p class="text-[11px] font-semibold text-slate-300">Distribucion geografica de solicitudes</p>
-          <span class="hint flex items-center gap-1 text-[9px] text-acc"><i class="bi bi-cursor-fill"></i>clic ciudad</span>
+        <div class="flex justify-between items-center">
+          <span class="text-[11px] text-slate-600">Rechazados</span>
+          <span class="text-[11px] font-bold text-rose-500" id="s-rec">-</span>
         </div>
-        <div id="c-mapa" style="height:250px; border-radius:8px; overflow:hidden;"></div>
+        <div class="w-full h-px bg-bdr"></div>
+        <div class="flex justify-between items-center">
+          <span class="text-[11px] text-slate-600">Mi Casa Ya</span>
+          <span class="text-[11px] font-semibold text-acc" id="s-sub">-</span>
+        </div>
+        <div class="flex justify-between items-center">
+          <span class="text-[11px] text-slate-600">Ing. promedio</span>
+          <span class="text-[11px] font-semibold text-slate-300" id="s-ing">-</span>
+        </div>
       </div>
+    </div>
+  </aside>
 
-      <div class="bg-card border border-bdr rounded-xl p-4">
-        <p class="text-[11px] font-semibold text-slate-300 mb-3">Segmentos de cliente</p>
-        <div id="c-segmento" style="height:250px"></div>
+  <!-- ══ MAIN ════════════════════════════════════════════════════ -->
+  <div class="flex-1 flex flex-col overflow-hidden h-screen min-w-0">
+
+    <!-- Topbar -->
+    <div class="bg-panel border-b border-bdr px-5 py-2.5 flex items-center justify-between shrink-0">
+      <div>
+        <h1 class="text-sm font-bold text-white tracking-tight">Perfilacion de Clientes — Credito de Vivienda</h1>
+        <p class="text-[11px] text-slate-700 mt-0.5">Colombia · <span id="cnt">0</span> solicitudes</p>
       </div>
-
+      <div id="loading-dot" class="hidden w-1.5 h-1.5 rounded-full bg-acc animate-pulse"></div>
     </div>
 
-    <!-- ⑤ Tabla paginada -->
-    <div class="bg-card border border-bdr rounded-xl p-4">
-      <div class="flex items-center justify-between mb-3">
-        <p class="text-[11px] font-semibold text-slate-300">Solicitudes</p>
-        <span id="tbl-info" class="text-[10px] text-slate-600">-</span>
+    <!-- Contenido scrollable -->
+    <div class="flex-1 overflow-y-auto p-3 space-y-3">
+
+      <!-- ① KPIs — barra única horizontal -->
+      <div class="bg-card border border-bdr rounded-xl flex items-stretch divide-x divide-bdr">
+
+        <div class="flex-1 px-5 py-4">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Total</p>
+          <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-total">-</p>
+          <p class="text-[10px] text-slate-700 mt-1.5">solicitudes</p>
+        </div>
+
+        <div class="flex-1 px-5 py-4">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Aprobados</p>
+          <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-apr">-</p>
+          <p class="text-[10px] text-emerald-600/80 mt-1.5 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>
+            <span id="k-apr-abs">-</span>
+          </p>
+        </div>
+
+        <div class="flex-1 px-5 py-4">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Rechazados</p>
+          <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-rec">-</p>
+          <p class="text-[10px] text-rose-600/80 mt-1.5 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>
+            <span id="k-rec-abs">-</span>
+          </p>
+        </div>
+
+        <div class="flex-1 px-5 py-4">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Mi Casa Ya</p>
+          <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-sub">-</p>
+          <p class="text-[10px] text-acc/60 mt-1.5 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-acc shrink-0"></span>
+            <span id="k-sub-abs">-</span>
+          </p>
+        </div>
+
+        <div class="flex-1 px-5 py-4">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-2">Ing. promedio</p>
+          <p class="text-[26px] font-black text-slate-100 leading-none tracking-tight" id="k-ing">-</p>
+          <p class="text-[10px] text-slate-700 mt-1.5">millones COP / mes</p>
+        </div>
+
       </div>
-      <div class="overflow-x-auto">
-        <table class="w-full text-[11px] border-collapse">
-          <thead>
-            <tr class="border-b border-bdr">
-              <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">ID</th>
-              <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Ciudad</th>
-              <th class="py-2 px-2.5 text-center text-[9px] font-bold uppercase tracking-widest text-slate-700">Edad</th>
-              <th class="py-2 px-2.5 text-right text-[9px] font-bold uppercase tracking-widest text-slate-700">Ingresos</th>
-              <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Contrato</th>
-              <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Historial</th>
-              <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Riesgo</th>
-              <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Vivienda</th>
-              <th class="py-2 px-2.5 text-center text-[9px] font-bold uppercase tracking-widest text-slate-700">Mora</th>
-              <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Estado</th>
-            </tr>
-          </thead>
-          <tbody id="tbl-body"></tbody>
-        </table>
+
+      <!-- ① Predictores clave -->
+      <div class="grid grid-cols-4 gap-2.5">
+
+        <div class="bg-card border border-bdr rounded-xl px-4 py-3.5">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-3">Historial crediticio bueno
+          </p>
+          <p class="text-[30px] font-black text-slate-100 leading-none tracking-tight" id="ins-hist-bueno">-</p>
+          <p class="text-[10px] text-emerald-500/70 mt-2 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>de solicitudes aprobadas
+          </p>
+        </div>
+
+        <div class="bg-card border border-bdr rounded-xl px-4 py-3.5">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-3">Contrato indefinido</p>
+          <p class="text-[30px] font-black text-slate-100 leading-none tracking-tight" id="ins-contrato-ind">-</p>
+          <p class="text-[10px] text-emerald-500/70 mt-2 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"></span>de solicitudes aprobadas
+          </p>
+        </div>
+
+        <div class="bg-card border border-bdr rounded-xl px-4 py-3.5">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-3">Con mora previa</p>
+          <p class="text-[30px] font-black text-slate-100 leading-none tracking-tight" id="ins-mora-rec">-</p>
+          <p class="text-[10px] text-rose-500/70 mt-2 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>de solicitudes rechazadas
+          </p>
+        </div>
+
+        <div class="bg-card border border-bdr rounded-xl px-4 py-3.5">
+          <p class="text-[9px] font-semibold uppercase tracking-widest text-slate-700 mb-3">Contrato informal</p>
+          <p class="text-[30px] font-black text-slate-100 leading-none tracking-tight" id="ins-contrato-inf">-</p>
+          <p class="text-[10px] text-rose-500/70 mt-2 flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-rose-500 shrink-0"></span>de solicitudes rechazadas
+          </p>
+        </div>
+
       </div>
-      <div class="flex items-center justify-between mt-3 pt-3 border-t border-bdr">
-        <button id="btn-prev" onclick="changePage(-1)"
-          class="text-[11px] text-slate-500 border border-bdr rounded-lg px-3 py-1.5
+
+      <!-- ② Estado + Historial -->
+      <div class="grid grid-cols-[1fr_1.7fr] gap-2.5">
+
+        <div class="bg-card border border-bdr rounded-xl p-4 clickable" id="wrap-estado">
+          <div class="flex items-center justify-between mb-3">
+            <p class="text-[11px] font-semibold text-slate-300">Estado de solicitudes</p>
+            <span class="hint flex items-center gap-1 text-[9px] text-acc"><i class="bi bi-cursor-fill"></i>clic</span>
+          </div>
+          <div id="c-estado" style="height:190px"></div>
+        </div>
+
+        <div class="bg-card border border-bdr rounded-xl p-4">
+          <p class="text-[11px] font-semibold text-slate-300 mb-3">Historial crediticio vs resultado</p>
+          <div id="c-historial-estado" style="height:190px"></div>
+        </div>
+
+      </div>
+
+      <!-- ③ Contrato + Ingresos -->
+      <div class="grid grid-cols-2 gap-2.5">
+
+        <div class="bg-card border border-bdr rounded-xl p-4 clickable" id="wrap-contrato">
+          <div class="flex items-center justify-between mb-3">
+            <p class="text-[11px] font-semibold text-slate-300">Tipo de contrato vs resultado</p>
+            <span class="hint flex items-center gap-1 text-[9px] text-acc"><i class="bi bi-cursor-fill"></i>clic</span>
+          </div>
+          <div id="c-contrato-estado" style="height:185px"></div>
+        </div>
+
+        <div class="bg-card border border-bdr rounded-xl p-4">
+          <p class="text-[11px] font-semibold text-slate-300 mb-3">Distribucion de ingresos mensuales (MCOP)</p>
+          <div id="c-ing-hist" style="height:185px"></div>
+        </div>
+
+      </div>
+
+      <!-- ④ Mapa + Segmentos -->
+      <div class="grid grid-cols-2 gap-2.5">
+
+        <div class="bg-card border border-bdr rounded-xl p-4 clickable" id="wrap-mapa">
+          <div class="flex items-center justify-between mb-3">
+            <p class="text-[11px] font-semibold text-slate-300">Distribucion geografica de solicitudes</p>
+            <span class="hint flex items-center gap-1 text-[9px] text-acc"><i class="bi bi-cursor-fill"></i>clic
+              ciudad</span>
+          </div>
+          <div id="c-mapa" style="height:250px; border-radius:8px; overflow:hidden;"></div>
+        </div>
+
+        <div class="bg-card border border-bdr rounded-xl p-4">
+          <p class="text-[11px] font-semibold text-slate-300 mb-3">Segmentos de cliente</p>
+          <div id="c-segmento" style="height:250px"></div>
+        </div>
+
+      </div>
+
+      <!-- ⑤ Tabla paginada -->
+      <div class="bg-card border border-bdr rounded-xl p-4">
+        <div class="flex items-center justify-between mb-3">
+          <p class="text-[11px] font-semibold text-slate-300">Solicitudes</p>
+          <span id="tbl-info" class="text-[10px] text-slate-600">-</span>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full text-[11px] border-collapse">
+            <thead>
+              <tr class="border-b border-bdr">
+                <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">ID</th>
+                <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Ciudad
+                </th>
+                <th class="py-2 px-2.5 text-center text-[9px] font-bold uppercase tracking-widest text-slate-700">Edad
+                </th>
+                <th class="py-2 px-2.5 text-right text-[9px] font-bold uppercase tracking-widest text-slate-700">
+                  Ingresos</th>
+                <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Contrato
+                </th>
+                <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">
+                  Historial</th>
+                <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Riesgo
+                </th>
+                <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Vivienda
+                </th>
+                <th class="py-2 px-2.5 text-center text-[9px] font-bold uppercase tracking-widest text-slate-700">Mora
+                </th>
+                <th class="py-2 px-2.5 text-left text-[9px] font-bold uppercase tracking-widest text-slate-700">Estado
+                </th>
+              </tr>
+            </thead>
+            <tbody id="tbl-body"></tbody>
+          </table>
+        </div>
+        <div class="flex items-center justify-between mt-3 pt-3 border-t border-bdr">
+          <button id="btn-prev" onclick="changePage(-1)" class="text-[11px] text-slate-500 border border-bdr rounded-lg px-3 py-1.5
                  hover:border-acc/40 hover:text-acc transition-colors disabled:opacity-25 disabled:cursor-not-allowed">
-          <i class="bi bi-chevron-left mr-1"></i>Anterior
-        </button>
-        <span id="tbl-pages" class="text-[10px] text-slate-600">-</span>
-        <button id="btn-next" onclick="changePage(1)"
-          class="text-[11px] text-slate-500 border border-bdr rounded-lg px-3 py-1.5
+            <i class="bi bi-chevron-left mr-1"></i>Anterior
+          </button>
+          <span id="tbl-pages" class="text-[10px] text-slate-600">-</span>
+          <button id="btn-next" onclick="changePage(1)" class="text-[11px] text-slate-500 border border-bdr rounded-lg px-3 py-1.5
                  hover:border-acc/40 hover:text-acc transition-colors disabled:opacity-25 disabled:cursor-not-allowed">
-          Siguiente<i class="bi bi-chevron-right ml-1"></i>
-        </button>
+            Siguiente<i class="bi bi-chevron-right ml-1"></i>
+          </button>
+        </div>
       </div>
+
     </div>
-
   </div>
-</div>
 
-<!-- ══ JAVASCRIPT ════════════════════════════════════════════ -->
-<script>
-// ── Mapbox init (estilos gratuitos Carto no requieren token) ──
-Plotly.setPlotConfig({ mapboxAccessToken: '' });
+  <!-- ══ JAVASCRIPT ════════════════════════════════════════════ -->
+  <script>
+    // ── Mapbox init (estilos gratuitos Carto no requieren token) ──
+    Plotly.setPlotConfig({ mapboxAccessToken: '' });
 
-// ── City coordinates (Colombia) ───────────────────────────────
-const CITY_LAT = {
-  'Bogotá':4.711, 'Medellín':6.252, 'Cali':3.452, 'Barranquilla':10.964,
-  'Bucaramanga':7.119, 'Pereira':4.814, 'Manizales':5.070, 'Ibagué':4.439,
-  'Cartagena':10.391, 'Cúcuta':7.894, 'Villavicencio':4.142,
-  'Santa Marta':11.241, 'Pasto':1.214, 'Montería':8.748, 'Armenia':4.534,
-};
-const CITY_LON = {
-  'Bogotá':-74.072, 'Medellín':-75.564, 'Cali':-76.532, 'Barranquilla':-74.796,
-  'Bucaramanga':-73.123, 'Pereira':-75.695, 'Manizales':-75.514, 'Ibagué':-75.232,
-  'Cartagena':-75.479, 'Cúcuta':-72.508, 'Villavicencio':-73.627,
-  'Santa Marta':-74.199, 'Pasto':-77.281, 'Montería':-75.881, 'Armenia':-75.681,
-};
+    // ── City coordinates (Colombia) ───────────────────────────────
+    const CITY_LAT = {
+      'Bogotá': 4.711, 'Medellín': 6.252, 'Cali': 3.452, 'Barranquilla': 10.964,
+      'Bucaramanga': 7.119, 'Pereira': 4.814, 'Manizales': 5.070, 'Ibagué': 4.439,
+      'Cartagena': 10.391, 'Cúcuta': 7.894, 'Villavicencio': 4.142,
+      'Santa Marta': 11.241, 'Pasto': 1.214, 'Montería': 8.748, 'Armenia': 4.534,
+    };
+    const CITY_LON = {
+      'Bogotá': -74.072, 'Medellín': -75.564, 'Cali': -76.532, 'Barranquilla': -74.796,
+      'Bucaramanga': -73.123, 'Pereira': -75.695, 'Manizales': -75.514, 'Ibagué': -75.232,
+      'Cartagena': -75.479, 'Cúcuta': -72.508, 'Villavicencio': -73.627,
+      'Santa Marta': -74.199, 'Pasto': -77.281, 'Montería': -75.881, 'Armenia': -75.681,
+    };
 
-// ── Filtros ───────────────────────────────────────────────────
-const FIDS    = ['f-ciudad','f-estado','f-riesgo','f-contrato','f-vivienda','f-mora'];
-const FLABELS = { 'f-ciudad':'Ciudad','f-estado':'Estado','f-riesgo':'Riesgo',
-                  'f-contrato':'Contrato','f-vivienda':'Vivienda','f-mora':'Mora' };
+    // ── Filtros ───────────────────────────────────────────────────
+    const FIDS = ['f-ciudad', 'f-estado', 'f-riesgo', 'f-contrato', 'f-vivienda', 'f-mora'];
+    const FLABELS = {
+      'f-ciudad': 'Ciudad', 'f-estado': 'Estado', 'f-riesgo': 'Riesgo',
+      'f-contrato': 'Contrato', 'f-vivienda': 'Vivienda', 'f-mora': 'Mora'
+    };
 
-// ── Paleta de colores ─────────────────────────────────────────
-// Semanticos
-const APR = '#10b981';   // emerald-500  — Aprobado
-const EST = '#f59e0b';   // amber-500    — En estudio
-const REC = '#f43f5e';   // rose-500     — Rechazado
-// Generales
-const IND = '#818cf8';   // indigo-400   — acento principal
-const TEA = '#2dd4bf';   // teal-400
-const SLA = '#94a3b8';   // slate-400
+    // ── Paleta de colores ─────────────────────────────────────────
+    // Semanticos
+    const APR = '#10b981';   // emerald-500  — Aprobado
+    const EST = '#f59e0b';   // amber-500    — En estudio
+    const REC = '#f43f5e';   // rose-500     — Rechazado
+    // Generales
+    const IND = '#818cf8';   // indigo-400   — acento principal
+    const TEA = '#2dd4bf';   // teal-400
+    const SLA = '#94a3b8';   // slate-400
 
-const C = {
-  estado: { Aprobado: APR, 'En estudio': EST, Rechazado: REC },
-  // paleta curada para segmentos (6 categorias)
-  pal: [IND, APR, EST, REC, TEA, SLA, '#c084fc'],
-};
+    const C = {
+      estado: { Aprobado: APR, 'En estudio': EST, Rechazado: REC },
+      // paleta curada para segmentos (6 categorias)
+      pal: [IND, APR, EST, REC, TEA, SLA, '#c084fc'],
+    };
 
-// ── Plotly base ───────────────────────────────────────────────
-const BG  = 'rgba(0,0,0,0)';
-const GRD = '#162030';
-const TXT = '#475569';
-const TX2 = '#64748b';
+    // ── Plotly base ───────────────────────────────────────────────
+    const BG = 'rgba(0,0,0,0)';
+    const GRD = '#162030';
+    const TXT = '#475569';
+    const TX2 = '#64748b';
 
-const BASE = {
-  paper_bgcolor: BG, plot_bgcolor: BG,
-  font: { color: TXT, family: 'Inter,system-ui,sans-serif', size: 11 },
-  margin: { t:6, b:36, l:48, r:20 },
-  legend: { bgcolor: BG, font: { color: TX2, size: 10 } },
-  xaxis: { gridcolor:GRD, zerolinecolor:GRD, tickfont:{size:10,color:TXT} },
-  yaxis: { gridcolor:GRD, zerolinecolor:GRD, tickfont:{size:10,color:TXT} },
-};
-const CFG = { responsive: true, displayModeBar: false };
+    const BASE = {
+      paper_bgcolor: BG, plot_bgcolor: BG,
+      font: { color: TXT, family: 'Inter,system-ui,sans-serif', size: 11 },
+      margin: { t: 6, b: 36, l: 48, r: 20 },
+      legend: { bgcolor: BG, font: { color: TX2, size: 10 } },
+      xaxis: { gridcolor: GRD, zerolinecolor: GRD, tickfont: { size: 10, color: TXT } },
+      yaxis: { gridcolor: GRD, zerolinecolor: GRD, tickfont: { size: 10, color: TXT } },
+    };
+    const CFG = { responsive: true, displayModeBar: false };
 
-// ── Utils ─────────────────────────────────────────────────────
-const gv    = id => document.getElementById(id).value;
-const sel   = id => document.getElementById(id);
-const fmt   = n  => Number(n).toLocaleString('es-CO');
-const setEl = (id, v) => { const e = sel(id); if (e) e.textContent = v; };
+    // ── Utils ─────────────────────────────────────────────────────
+    const gv = id => document.getElementById(id).value;
+    const sel = id => document.getElementById(id);
+    const fmt = n => Number(n).toLocaleString('es-CO');
+    const setEl = (id, v) => { const e = sel(id); if (e) e.textContent = v; };
 
-function buildParams() {
-  const p = new URLSearchParams();
-  FIDS.forEach(id => { const v = gv(id); if (v) p.set(id.replace('f-',''), v); });
-  return p.toString();
-}
+    function buildParams() {
+      const p = new URLSearchParams();
+      FIDS.forEach(id => { const v = gv(id); if (v) p.set(id.replace('f-', ''), v); });
+      return p.toString();
+    }
 
-function updateChips() {
-  const wrap = sel('chips'); wrap.innerHTML = '';
-  let any = false;
-  FIDS.forEach(id => {
-    const v = gv(id); if (!v) return;
-    any = true;
-    const c = document.createElement('span');
-    c.className = 'inline-flex items-center gap-1 bg-acc/10 border border-acc/20 text-acc text-[10px] rounded-full px-2 py-0.5 cursor-pointer hover:bg-acc/20 transition-colors';
-    c.innerHTML = `${FLABELS[id]}: ${v} <span class="opacity-40">x</span>`;
-    c.onclick = () => { sel(id).value = ''; fetchData(); };
-    wrap.appendChild(c);
-  });
-  sel('btn-clear').classList.toggle('hidden', !any);
-}
+    function updateChips() {
+      const wrap = sel('chips'); wrap.innerHTML = '';
+      let any = false;
+      FIDS.forEach(id => {
+        const v = gv(id); if (!v) return;
+        any = true;
+        const c = document.createElement('span');
+        c.className = 'inline-flex items-center gap-1 bg-acc/10 border border-acc/20 text-acc text-[10px] rounded-full px-2 py-0.5 cursor-pointer hover:bg-acc/20 transition-colors';
+        c.innerHTML = `${FLABELS[id]}: ${v} <span class="opacity-40">x</span>`;
+        c.onclick = () => { sel(id).value = ''; fetchData(); };
+        wrap.appendChild(c);
+      });
+      sel('btn-clear').classList.toggle('hidden', !any);
+    }
 
-function resetFilters() {
-  FIDS.forEach(id => sel(id).value = '');
-  clearHighlights();
-  fetchData();
-}
+    function resetFilters() {
+      FIDS.forEach(id => sel(id).value = '');
+      clearHighlights();
+      fetchData();
+    }
 
-// ── 100% stacked horizontal bar ───────────────────────────────
-function stackedPct(divId, data, groupKey, yOrder, extraLayout = {}) {
-  const estList = ['Aprobado', 'En estudio', 'Rechazado'];
-  const traces  = estList.map(est => ({
-    type: 'bar', orientation: 'h', name: est,
-    x: yOrder.map(y => {
-      const r = data.find(d => d[groupKey] === y && d.Estado_Solicitud === est);
-      return r ? r.pct : 0;
-    }),
-    y: yOrder,
-    marker: { color: C.estado[est] },
-    text: yOrder.map(y => {
-      const r = data.find(d => d[groupKey] === y && d.Estado_Solicitud === est);
-      return (r && r.pct >= 9) ? r.pct.toFixed(0) + '%' : '';
-    }),
-    textposition: 'inside',
-    insidetextanchor: 'middle',
-    textfont: { color: 'rgba(255,255,255,.75)', size: 10 },
-    hovertemplate: `<b>%{y}</b><br>${est}: %{x:.1f}%<extra></extra>`,
-  }));
+    // ── 100% stacked horizontal bar ───────────────────────────────
+    function stackedPct(divId, data, groupKey, yOrder, extraLayout = {}) {
+      const estList = ['Aprobado', 'En estudio', 'Rechazado'];
+      const traces = estList.map(est => ({
+        type: 'bar', orientation: 'h', name: est,
+        x: yOrder.map(y => {
+          const r = data.find(d => d[groupKey] === y && d.Estado_Solicitud === est);
+          return r ? r.pct : 0;
+        }),
+        y: yOrder,
+        marker: { color: C.estado[est] },
+        text: yOrder.map(y => {
+          const r = data.find(d => d[groupKey] === y && d.Estado_Solicitud === est);
+          return (r && r.pct >= 9) ? r.pct.toFixed(0) + '%' : '';
+        }),
+        textposition: 'inside',
+        insidetextanchor: 'middle',
+        textfont: { color: 'rgba(255,255,255,.75)', size: 10 },
+        hovertemplate: `<b>%{y}</b><br>${est}: %{x:.1f}%<extra></extra>`,
+      }));
 
-  Plotly.react(divId, traces, {
-    ...BASE, barmode: 'stack',
-    xaxis: { ...BASE.xaxis, range:[0,100], ticksuffix:'%', showgrid:false, zeroline:false },
-    yaxis: { ...BASE.yaxis, autorange:'reversed', tickfont:{size:11,color:TX2} },
-    legend: { bgcolor:BG, orientation:'h', y:1.14, x:0, font:{color:TXT,size:10} },
-    margin: { t:6, b:28, l:100, r:20 },
-    ...extraLayout,
-  }, CFG);
-}
+      Plotly.react(divId, traces, {
+        ...BASE, barmode: 'stack',
+        xaxis: { ...BASE.xaxis, range: [0, 100], ticksuffix: '%', showgrid: false, zeroline: false },
+        yaxis: { ...BASE.yaxis, autorange: 'reversed', tickfont: { size: 11, color: TX2 } },
+        legend: { bgcolor: BG, orientation: 'h', y: 1.14, x: 0, font: { color: TXT, size: 10 } },
+        margin: { t: 6, b: 28, l: 100, r: 20 },
+        ...extraLayout,
+      }, CFG);
+    }
 
-// ── Fetch principal ───────────────────────────────────────────
-let ctrl = null;
+    // ── Fetch principal ───────────────────────────────────────────
+    let ctrl = null;
 
-async function fetchData() {
-  updateChips();
-  tablePage = 1;
-  if (ctrl) ctrl.abort();
-  ctrl = new AbortController();
-  sel('loading-dot').classList.remove('hidden');
-  try {
-    const res = await fetch(`/api/data?${buildParams()}`, { signal: ctrl.signal });
-    renderAll(await res.json());
-  } catch(e) {
-    if (e.name !== 'AbortError') console.error(e);
-  } finally {
-    sel('loading-dot').classList.add('hidden');
-  }
-  fetchTable(1);
-}
+    async function fetchData() {
+      updateChips();
+      tablePage = 1;
+      if (ctrl) ctrl.abort();
+      ctrl = new AbortController();
+      sel('loading-dot').classList.remove('hidden');
+      try {
+        const res = await fetch(`/api/data?${buildParams()}`, { signal: ctrl.signal });
+        renderAll(await res.json());
+      } catch (e) {
+        if (e.name !== 'AbortError') console.error(e);
+      } finally {
+        sel('loading-dot').classList.add('hidden');
+      }
+      fetchTable(1);
+    }
 
-// ── Render principal ──────────────────────────────────────────
-const CHART_IDS = ['c-estado','c-historial-estado','c-contrato-estado',
-                   'c-ing-hist','c-mapa','c-segmento'];
+    // ── Render principal ──────────────────────────────────────────
+    const CHART_IDS = ['c-estado', 'c-historial-estado', 'c-contrato-estado',
+      'c-ing-hist', 'c-mapa', 'c-segmento'];
 
-function renderAll({ n, kpis: kp, charts: ch, insights: ins }) {
-  setEl('cnt',      fmt(n));
-  setEl('k-total',  fmt(n));
-  setEl('k-apr',    kp.aprobados_pct  + '%');
-  setEl('k-rec',    kp.rechazados_pct + '%');
-  setEl('k-sub',    kp.subsidio_pct   + '%');
-  setEl('k-ing',    '$' + kp.ing_prom + 'M');
-  setEl('k-apr-abs', fmt(kp.apr_abs) + ' solicitudes');
-  setEl('k-rec-abs', fmt(kp.rec_abs) + ' solicitudes');
-  setEl('k-sub-abs', fmt(kp.sub_abs) + ' calificaron');
-  setEl('s-apr', fmt(kp.apr_abs));
-  setEl('s-est', fmt(kp.est_abs));
-  setEl('s-rec', fmt(kp.rec_abs));
-  setEl('s-sub', fmt(kp.sub_abs));
-  setEl('s-ing', '$' + kp.ing_prom + 'M');
+    function renderAll({ n, kpis: kp, charts: ch, insights: ins }) {
+      setEl('cnt', fmt(n));
+      setEl('k-total', fmt(n));
+      setEl('k-apr', kp.aprobados_pct + '%');
+      setEl('k-rec', kp.rechazados_pct + '%');
+      setEl('k-sub', kp.subsidio_pct + '%');
+      setEl('k-ing', '$' + kp.ing_prom + 'M');
+      setEl('k-apr-abs', fmt(kp.apr_abs) + ' solicitudes');
+      setEl('k-rec-abs', fmt(kp.rec_abs) + ' solicitudes');
+      setEl('k-sub-abs', fmt(kp.sub_abs) + ' calificaron');
+      setEl('s-apr', fmt(kp.apr_abs));
+      setEl('s-est', fmt(kp.est_abs));
+      setEl('s-rec', fmt(kp.rec_abs));
+      setEl('s-sub', fmt(kp.sub_abs));
+      setEl('s-ing', '$' + kp.ing_prom + 'M');
 
-  // Insights
-  const pct = v => v != null ? v + '%' : '-';
-  setEl('ins-hist-bueno',    pct(ins?.hist_bueno_apr));
-  setEl('ins-contrato-ind',  pct(ins?.contrato_ind_apr));
-  setEl('ins-mora-rec',      pct(ins?.mora_si_rec));
-  setEl('ins-contrato-inf',  pct(ins?.contrato_inf_rec));
+      // Insights
+      const pct = v => v != null ? v + '%' : '-';
+      setEl('ins-hist-bueno', pct(ins?.hist_bueno_apr));
+      setEl('ins-contrato-ind', pct(ins?.contrato_ind_apr));
+      setEl('ins-mora-rec', pct(ins?.mora_si_rec));
+      setEl('ins-contrato-inf', pct(ins?.contrato_inf_rec));
 
-  if (n === 0) {
-    CHART_IDS.forEach(id => {
-      sel(id).innerHTML = '<div class="h-full flex flex-col items-center justify-center text-slate-700 text-xs gap-2"><i class="bi bi-inbox text-2xl"></i>Sin datos</div>';
-    });
-    return;
-  }
+      if (n === 0) {
+        CHART_IDS.forEach(id => {
+          sel(id).innerHTML = '<div class="h-full flex flex-col items-center justify-center text-slate-700 text-xs gap-2"><i class="bi bi-inbox text-2xl"></i>Sin datos</div>';
+        });
+        return;
+      }
 
-  // Dona — Estado
-  const eK = ['Aprobado', 'En estudio', 'Rechazado'];
-  Plotly.react('c-estado', [{
-    type: 'pie', hole: .58,
-    labels: eK,
-    values: eK.map(k => ch.estado[k] || 0),
-    marker: { colors: eK.map(k => C.estado[k]), line:{ color:'#030812', width:3 } },
-    textinfo: 'label+percent',
-    textfont: { color: '#cbd5e1', size: 10 },
-    hovertemplate: '<b>%{label}</b><br>%{value:,}<br>%{percent}<extra></extra>',
-    sort: false,
-    pull: [0.03, 0, 0],
-  }], {
-    ...BASE,
-    margin: { t:4, b:4, l:4, r:4 },
-    showlegend: true,
-    legend: { orientation:'h', y:-0.12, x:.5, xanchor:'center', bgcolor:BG, font:{color:TXT,size:10} },
-  }, CFG);
+      // Dona — Estado
+      const eK = ['Aprobado', 'En estudio', 'Rechazado'];
+      Plotly.react('c-estado', [{
+        type: 'pie', hole: .58,
+        labels: eK,
+        values: eK.map(k => ch.estado[k] || 0),
+        marker: { colors: eK.map(k => C.estado[k]), line: { color: '#030812', width: 3 } },
+        textinfo: 'label+percent',
+        textfont: { color: '#cbd5e1', size: 10 },
+        hovertemplate: '<b>%{label}</b><br>%{value:,}<br>%{percent}<extra></extra>',
+        sort: false,
+        pull: [0.03, 0, 0],
+      }], {
+        ...BASE,
+        margin: { t: 4, b: 4, l: 4, r: 4 },
+        showlegend: true,
+        legend: { orientation: 'h', y: -0.12, x: .5, xanchor: 'center', bgcolor: BG, font: { color: TXT, size: 10 } },
+      }, CFG);
 
-  // Historial x Estado
-  stackedPct('c-historial-estado', ch.historial_estado, 'Historial_Crediticio',
-    ['Inexistente','Malo','Regular','Bueno']);
+      // Historial x Estado
+      stackedPct('c-historial-estado', ch.historial_estado, 'Historial_Crediticio',
+        ['Inexistente', 'Malo', 'Regular', 'Bueno']);
 
-  // Contrato x Estado
-  const contratoOrder = [...new Set(ch.contrato_estado.map(d => d.Tipo_Contrato))]
-    .sort((a, b) => {
-      const rank = { Indefinido:0, 'Término fijo':1, Independiente:2, Informal:3 };
-      return (rank[a] ?? 9) - (rank[b] ?? 9);
-    });
-  stackedPct('c-contrato-estado', ch.contrato_estado, 'Tipo_Contrato',
-    contratoOrder.reverse(), { margin:{ t:6, b:28, l:115, r:20 } });
+      // Contrato x Estado
+      const contratoOrder = [...new Set(ch.contrato_estado.map(d => d.Tipo_Contrato))]
+        .sort((a, b) => {
+          const rank = { Indefinido: 0, 'Término fijo': 1, Independiente: 2, Informal: 3 };
+          return (rank[a] ?? 9) - (rank[b] ?? 9);
+        });
+      stackedPct('c-contrato-estado', ch.contrato_estado, 'Tipo_Contrato',
+        contratoOrder.reverse(), { margin: { t: 6, b: 28, l: 115, r: 20 } });
 
-  // Histograma ingresos — color único, sin gradiente raro
-  const hL = ch.ing_hist.map(d => d.label);
-  const hV = ch.ing_hist.map(d => d.n);
-  Plotly.react('c-ing-hist', [{
-    type: 'bar',
-    x: hL, y: hV,
-    marker: {
-      color: IND,
-      opacity: 0.72,
-      line: { color: 'rgba(129,140,248,0.35)', width: 1 },
-    },
-    text: hV.map(v => fmt(v)),
-    textposition: 'outside',
-    textfont: { color: TX2, size: 9 },
-    hovertemplate: '%{x}: <b>%{y:,}</b> clientes<extra></extra>',
-  }], {
-    ...BASE,
-    bargap: 0.12,
-    xaxis: { ...BASE.xaxis, tickfont:{size:9,color:TXT} },
-    yaxis: { ...BASE.yaxis, showgrid:true },
-    margin: { t:6, b:40, l:50, r:20 },
-  }, CFG);
+      // Histograma ingresos — color único, sin gradiente raro
+      const hL = ch.ing_hist.map(d => d.label);
+      const hV = ch.ing_hist.map(d => d.n);
+      Plotly.react('c-ing-hist', [{
+        type: 'bar',
+        x: hL, y: hV,
+        marker: {
+          color: IND,
+          opacity: 0.72,
+          line: { color: 'rgba(129,140,248,0.35)', width: 1 },
+        },
+        text: hV.map(v => fmt(v)),
+        textposition: 'outside',
+        textfont: { color: TX2, size: 9 },
+        hovertemplate: '%{x}: <b>%{y:,}</b> clientes<extra></extra>',
+      }], {
+        ...BASE,
+        bargap: 0.12,
+        xaxis: { ...BASE.xaxis, tickfont: { size: 9, color: TXT } },
+        yaxis: { ...BASE.yaxis, showgrid: true },
+        margin: { t: 6, b: 40, l: 50, r: 20 },
+      }, CFG);
 
-  // Mapa de calor por ciudad
-  renderMap(ch.ciudad);
+      // Mapa de calor por ciudad
+      renderMap(ch.ciudad);
 
-  // Segmentos — paleta curada, sin arcoíris
-  const segE = Object.entries(ch.segmento).sort((a,b) => b[1]-a[1]);
-  Plotly.react('c-segmento', [{
-    type: 'bar', orientation: 'h',
-    x: segE.map(e=>e[1]), y: segE.map(e=>e[0]),
-    marker: { color: C.pal.slice(0, segE.length), opacity: 0.85 },
-    text: segE.map(e => fmt(e[1])),
-    textposition: 'outside',
-    textfont: { color: TX2, size: 9 },
-    hovertemplate: '<b>%{y}</b><br>%{x:,} clientes<extra></extra>',
-  }], {
-    ...BASE,
-    margin: { t:6, b:28, l:200, r:58 },
-    yaxis: { ...BASE.yaxis, autorange:'reversed', tickfont:{size:10,color:TX2} },
-    xaxis: { ...BASE.xaxis, showgrid:true },
-  }, CFG);
+      // Segmentos — paleta curada, sin arcoíris
+      const segE = Object.entries(ch.segmento).sort((a, b) => b[1] - a[1]);
+      Plotly.react('c-segmento', [{
+        type: 'bar', orientation: 'h',
+        x: segE.map(e => e[1]), y: segE.map(e => e[0]),
+        marker: { color: C.pal.slice(0, segE.length), opacity: 0.85 },
+        text: segE.map(e => fmt(e[1])),
+        textposition: 'outside',
+        textfont: { color: TX2, size: 9 },
+        hovertemplate: '<b>%{y}</b><br>%{x:,} clientes<extra></extra>',
+      }], {
+        ...BASE,
+        margin: { t: 6, b: 28, l: 200, r: 58 },
+        yaxis: { ...BASE.yaxis, autorange: 'reversed', tickfont: { size: 10, color: TX2 } },
+        xaxis: { ...BASE.xaxis, showgrid: true },
+      }, CFG);
 
-  attachClickHandlers();
-}
+      attachClickHandlers();
+    }
 
-// ── Mapa de burbujas (Colombia) ───────────────────────────────
-function renderMap(ciudadData) {
-  const entries = Object.entries(ciudadData).sort((a,b) => b[1]-a[1]);
-  const names   = entries.map(e => e[0]);
-  const counts  = entries.map(e => e[1]);
-  const maxCnt  = Math.max(...counts);
+    // ── Mapa de burbujas (Colombia) ───────────────────────────────
+    function renderMap(ciudadData) {
+      const entries = Object.entries(ciudadData).sort((a, b) => b[1] - a[1]);
+      const names = entries.map(e => e[0]);
+      const counts = entries.map(e => e[1]);
+      const maxCnt = Math.max(...counts);
 
-  Plotly.react('c-mapa', [{
-    type: 'scattermapbox',
-    lat:  names.map(n => CITY_LAT[n] ?? 4.5),
-    lon:  names.map(n => CITY_LON[n] ?? -74),
-    mode: 'markers+text',
-    marker: {
-      size:  counts.map(c => 14 + (c / maxCnt) * 36),
-      color: counts,
-      colorscale: [
-        [0,   'rgba(99,102,241,0.35)'],
-        [0.4, 'rgba(129,140,248,0.65)'],
-        [1,   'rgba(199,210,254,0.90)'],
-      ],
-      showscale: false,
-      opacity: 0.88,
-    },
-    text:       names,
-    textfont:   { size: 9, color: 'rgba(203,213,225,0.7)' },
-    textposition: 'top center',
-    customdata: counts,
-    hovertemplate: '<b>%{text}</b><br>%{customdata:,} solicitudes<extra></extra>',
-  }], {
-    mapbox: {
-      style:  'carto-darkmatter',
-      center: { lat: 5.0, lon: -75.2 },
-      zoom:   4.4,
-    },
-    margin:       { t:0, b:0, l:0, r:0 },
-    paper_bgcolor: BG,
-    plot_bgcolor:  BG,
-    showlegend:   false,
-  }, { responsive: true, displayModeBar: false });
-}
+      Plotly.react('c-mapa', [{
+        type: 'scattermapbox',
+        lat: names.map(n => CITY_LAT[n] ?? 4.5),
+        lon: names.map(n => CITY_LON[n] ?? -74),
+        mode: 'markers+text',
+        marker: {
+          size: counts.map(c => 14 + (c / maxCnt) * 36),
+          color: counts,
+          colorscale: [
+            [0, 'rgba(99,102,241,0.35)'],
+            [0.4, 'rgba(129,140,248,0.65)'],
+            [1, 'rgba(199,210,254,0.90)'],
+          ],
+          showscale: false,
+          opacity: 0.88,
+        },
+        text: names,
+        textfont: { size: 9, color: 'rgba(203,213,225,0.7)' },
+        textposition: 'top center',
+        customdata: counts,
+        hovertemplate: '<b>%{text}</b><br>%{customdata:,} solicitudes<extra></extra>',
+      }], {
+        mapbox: {
+          style: 'carto-darkmatter',
+          center: { lat: 5.0, lon: -75.2 },
+          zoom: 4.4,
+        },
+        margin: { t: 0, b: 0, l: 0, r: 0 },
+        paper_bgcolor: BG,
+        plot_bgcolor: BG,
+        showlegend: false,
+      }, { responsive: true, displayModeBar: false });
+    }
 
-// ── Tabla paginada ────────────────────────────────────────────
-let tablePage = 1;
-const TABLE_SIZE = 15;
+    // ── Tabla paginada ────────────────────────────────────────────
+    let tablePage = 1;
+    const TABLE_SIZE = 15;
 
-async function fetchTable(page = 1) {
-  tablePage = page;
-  const res = await fetch(`/api/table?${buildParams()}&page=${page}&size=${TABLE_SIZE}`);
-  renderTable(await res.json());
-}
+    async function fetchTable(page = 1) {
+      tablePage = page;
+      const res = await fetch(`/api/table?${buildParams()}&page=${page}&size=${TABLE_SIZE}`);
+      renderTable(await res.json());
+    }
 
-function renderTable({ total, page, size, rows }) {
-  const totalPages = Math.ceil(total / size);
-  const from = (page - 1) * size + 1;
-  const to   = Math.min(page * size, total);
-  setEl('tbl-info', `${fmt(from)}–${fmt(to)} de ${fmt(total)}`);
-  setEl('tbl-pages', `Pág. ${page} / ${totalPages}`);
+    function renderTable({ total, page, size, rows }) {
+      const totalPages = Math.ceil(total / size);
+      const from = (page - 1) * size + 1;
+      const to = Math.min(page * size, total);
+      setEl('tbl-info', `${fmt(from)}–${fmt(to)} de ${fmt(total)}`);
+      setEl('tbl-pages', `Pág. ${page} / ${totalPages}`);
 
-  const btnP = sel('btn-prev');
-  const btnN = sel('btn-next');
-  btnP.disabled = page <= 1;
-  btnN.disabled = page >= totalPages;
+      const btnP = sel('btn-prev');
+      const btnN = sel('btn-next');
+      btnP.disabled = page <= 1;
+      btnN.disabled = page >= totalPages;
 
-  const ECOL = { Aprobado:'text-emerald-400', 'En estudio':'text-amber-500', Rechazado:'text-rose-400' };
-  const HCOL = { Bueno:'text-emerald-400', Regular:'text-amber-500', Malo:'text-rose-400', Inexistente:'text-acc' };
-  const RCOL = { Bajo:'text-emerald-400', Medio:'text-amber-500', Alto:'text-rose-400' };
+      const ECOL = { Aprobado: 'text-emerald-400', 'En estudio': 'text-amber-500', Rechazado: 'text-rose-400' };
+      const HCOL = { Bueno: 'text-emerald-400', Regular: 'text-amber-500', Malo: 'text-rose-400', Inexistente: 'text-acc' };
+      const RCOL = { Bajo: 'text-emerald-400', Medio: 'text-amber-500', Alto: 'text-rose-400' };
 
-  sel('tbl-body').innerHTML = rows.map(r => `
+      sel('tbl-body').innerHTML = rows.map(r => `
     <tr class="border-b border-bdr/60 hover:bg-white/[.018] transition-colors">
       <td class="py-1.5 px-2.5 text-slate-700 font-mono text-[10px] whitespace-nowrap">${r.ID_Solicitud}</td>
       <td class="py-1.5 px-2.5 text-slate-400">${r.Ciudad}</td>
       <td class="py-1.5 px-2.5 text-slate-500 text-center">${r.Edad}</td>
       <td class="py-1.5 px-2.5 text-slate-300 text-right font-mono">${Number(r.Ingresos_Mensuales_MCOP).toFixed(1)}M</td>
       <td class="py-1.5 px-2.5 text-slate-500">${r.Tipo_Contrato}</td>
-      <td class="py-1.5 px-2.5 font-medium ${HCOL[r.Historial_Crediticio]||'text-slate-500'}">${r.Historial_Crediticio}</td>
-      <td class="py-1.5 px-2.5 font-medium ${RCOL[r.Nivel_Riesgo]||'text-slate-500'}">${r.Nivel_Riesgo}</td>
+      <td class="py-1.5 px-2.5 font-medium ${HCOL[r.Historial_Crediticio] || 'text-slate-500'}">${r.Historial_Crediticio}</td>
+      <td class="py-1.5 px-2.5 font-medium ${RCOL[r.Nivel_Riesgo] || 'text-slate-500'}">${r.Nivel_Riesgo}</td>
       <td class="py-1.5 px-2.5 text-slate-500">${r.Tipo_Vivienda}</td>
-      <td class="py-1.5 px-2.5 text-center ${r.Mora_Previa==='Sí'?'text-rose-400':'text-slate-700'}">${r.Mora_Previa}</td>
-      <td class="py-1.5 px-2.5 font-semibold ${ECOL[r.Estado_Solicitud]||'text-slate-500'}">${r.Estado_Solicitud}</td>
+      <td class="py-1.5 px-2.5 text-center ${r.Mora_Previa === 'Sí' ? 'text-rose-400' : 'text-slate-700'}">${r.Mora_Previa}</td>
+      <td class="py-1.5 px-2.5 font-semibold ${ECOL[r.Estado_Solicitud] || 'text-slate-500'}">${r.Estado_Solicitud}</td>
     </tr>
   `).join('');
-}
+    }
 
-function changePage(delta) { fetchTable(tablePage + delta); }
+    function changePage(delta) { fetchTable(tablePage + delta); }
 
-// ── Cross-filtering ───────────────────────────────────────────
-const CHART_FILTER_MAP = {
-  'c-estado':          { filterId: 'f-estado',   prop: p => p.label, wrap: 'wrap-estado'   },
-  'c-contrato-estado': { filterId: 'f-contrato', prop: p => p.y,    wrap: 'wrap-contrato' },
-  'c-mapa':            { filterId: 'f-ciudad',   prop: p => p.text,  wrap: 'wrap-mapa'    },
-};
+    // ── Cross-filtering ───────────────────────────────────────────
+    const CHART_FILTER_MAP = {
+      'c-estado': { filterId: 'f-estado', prop: p => p.label, wrap: 'wrap-estado' },
+      'c-contrato-estado': { filterId: 'f-contrato', prop: p => p.y, wrap: 'wrap-contrato' },
+      'c-mapa': { filterId: 'f-ciudad', prop: p => p.text, wrap: 'wrap-mapa' },
+    };
 
-function clearHighlights() {
-  Object.values(CHART_FILTER_MAP).forEach(({ wrap }) => sel(wrap)?.classList.remove('active-filter'));
-}
+    function clearHighlights() {
+      Object.values(CHART_FILTER_MAP).forEach(({ wrap }) => sel(wrap)?.classList.remove('active-filter'));
+    }
 
-let listenersReady = false;
-function attachClickHandlers() {
-  if (listenersReady) return;
-  listenersReady = true;
+    let listenersReady = false;
+    function attachClickHandlers() {
+      if (listenersReady) return;
+      listenersReady = true;
 
-  Object.entries(CHART_FILTER_MAP).forEach(([chartId, { filterId, prop, wrap }]) => {
-    const div = sel(chartId);
-    if (!div?.on) return;
-    div.on('plotly_click', data => {
-      if (!data.points?.length) return;
-      const value  = prop(data.points[0]);
-      const toggle = gv(filterId) === value;
-      sel(filterId).value = toggle ? '' : value;
-      if (toggle) { sel(wrap)?.classList.remove('active-filter'); }
-      else { clearHighlights(); sel(wrap)?.classList.add('active-filter'); }
-      fetchData();
+      Object.entries(CHART_FILTER_MAP).forEach(([chartId, { filterId, prop, wrap }]) => {
+        const div = sel(chartId);
+        if (!div?.on) return;
+        div.on('plotly_click', data => {
+          if (!data.points?.length) return;
+          const value = prop(data.points[0]);
+          const toggle = gv(filterId) === value;
+          sel(filterId).value = toggle ? '' : value;
+          if (toggle) { sel(wrap)?.classList.remove('active-filter'); }
+          else { clearHighlights(); sel(wrap)?.classList.add('active-filter'); }
+          fetchData();
+        });
+      });
+    }
+
+    // ── Init ──────────────────────────────────────────────────────
+    window.addEventListener('load', () => {
+      fetchData().then(() => {
+        const l = sel('loader');
+        l.style.transition = 'opacity .4s';
+        l.style.opacity = '0';
+        setTimeout(() => l.style.display = 'none', 420);
+      });
     });
-  });
-}
-
-// ── Init ──────────────────────────────────────────────────────
-window.addEventListener('load', () => {
-  fetchData().then(() => {
-    const l = sel('loader');
-    l.style.transition = 'opacity .4s';
-    l.style.opacity = '0';
-    setTimeout(() => l.style.display = 'none', 420);
-  });
-});
-</script>
+  </script>
 </body>
+
 </html>
