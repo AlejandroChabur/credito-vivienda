@@ -317,54 +317,206 @@ tailwind.config = {
       <span class="section-num leading-none -mb-2">05</span>
       <div>
         <p class="text-[9px] font-bold uppercase tracking-widest text-acc mb-0.5">Seccion 05</p>
-        <h2 class="text-[18px] font-bold text-slate-200">Variables del dataset final</h2>
+        <h2 class="text-[18px] font-bold text-slate-200">Variables del dataset — que significa cada una</h2>
       </div>
     </div>
 
-    <div class="grid grid-cols-3 gap-3">
-      {% for grupo, color, vars in [
-        ('Perfil del solicitante', 'text-acc border-l-acc', [
-          ('Edad', 'Años del solicitante · rango 18–75'),
-          ('Ciudad', '15 ciudades colombianas ponderadas DANE'),
-          ('Vivienda_Actual', 'Arrendatario / Propietario / Hipotecado'),
-        ]),
-        ('Situacion laboral', 'text-amber-400 border-l-amber-500', [
-          ('Tipo_Contrato', 'Indefinido / Termino fijo / Independiente / Informal'),
-          ('Antiguedad_Laboral_Anos', 'Años en el empleo actual'),
-          ('Ingresos_Mensuales_MCOP', 'Ingreso mensual en millones COP'),
-        ]),
-        ('Historial crediticio', 'text-emerald-400 border-l-emerald-600', [
-          ('Historial_Crediticio', 'Bueno / Regular / Malo / Inexistente'),
-          ('Anos_Historial_Crediticio', 'Longitud del historial en años'),
-          ('Mora_Previa', 'Si tuvo mora registrada en centrales'),
-        ]),
-        ('Credito solicitado', 'text-sky-400 border-l-sky-600', [
-          ('Monto_Solicitado_MCOP', 'Valor del credito en millones COP'),
-          ('Plazo_Anos', '10 / 15 / 20 / 25 / 30 años'),
-          ('Tasa_Interes_EA_Pct', 'Tasa efectiva anual 10%–18%'),
-        ]),
-        ('Vivienda y subsidio', 'text-rose-400 border-l-rose-600', [
-          ('Tipo_Vivienda', 'VIS (≤ 190M COP) o No VIS'),
-          ('Valor_Vivienda_MCOP', 'Precio total del inmueble'),
-          ('Aplica_Subsidio', 'Califica para Mi Casa Ya'),
-        ]),
-        ('Variables objetivo', 'text-purple-400 border-l-purple-600', [
-          ('Nivel_Riesgo', 'Bajo / Medio / Alto (score compuesto)'),
-          ('Segmento_Cliente', '6 perfiles de cliente por capacidad de pago'),
-          ('Estado_Solicitud', 'Aprobado / En estudio / Rechazado'),
-        ])
-      ] %}
-      <div class="bg-card border border-bdr border-l-2 {{ color }} rounded-xl p-4 card-hover">
-        <p class="text-[9px] font-bold uppercase tracking-widest {{ color.split(' ')[0] }} mb-4">{{ grupo }}</p>
-        {% for nombre, desc in vars %}
-        <div class="{% if not loop.last %}mb-3 pb-3 border-b border-bdr/60{% endif %}">
-          <p class="text-[11px] font-semibold text-slate-300">{{ nombre }}</p>
-          <p class="text-[10px] text-slate-600 mt-0.5">{{ desc }}</p>
-        </div>
-        {% endfor %}
+    <!-- Grupo: Perfil del solicitante -->
+    <div class="mb-3">
+      <div class="flex items-center gap-2 mb-2 px-1">
+        <span class="w-2 h-2 rounded-full bg-acc shrink-0"></span>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-acc">Perfil del solicitante</p>
       </div>
-      {% endfor %}
+      <div class="bg-card border border-bdr border-l-2 border-l-acc rounded-xl overflow-hidden">
+        <div class="divide-y divide-bdr">
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">ID_Solicitud</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-acc/80">SOL-00001, SOL-00002…</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Identificador unico de cada solicitud. No tiene valor analitico — solo sirve para rastrear un registro especifico en la tabla. Se genera automaticamente en orden.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Ciudad</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-acc/80">Bogota, Medellin, Cali, Cucuta, Barranquilla… (15 total)</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Ciudad colombiana donde se radico la solicitud de credito. Fue asignada sinteticamente con ponderacion por poblacion segun el DANE 2023. Permite analizar la concentracion geografica de la demanda hipotecaria.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Edad</p><p class="text-[9px] text-slate-700 mt-0.5">Numero</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-acc/80">18 a 75 años</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Edad del solicitante en años. El rango 18–75 fue impuesto en el ETL eliminando edades atipicas del dataset original. Permite observar si la edad influye en la tasa de aprobacion.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Vivienda_Actual</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-acc/80">Arrendatario · Propietario · Hipotecado</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Situacion habitacional actual del solicitante. Un solicitante que ya esta pagando hipoteca tiene mayor endeudamiento real. No aparece en la tabla del dashboard pero si en el dataset completo.</p></div>
+          </div>
+
+        </div>
+      </div>
     </div>
+
+    <!-- Grupo: Situacion laboral -->
+    <div class="mb-3">
+      <div class="flex items-center gap-2 mb-2 px-1">
+        <span class="w-2 h-2 rounded-full bg-amber-500 shrink-0"></span>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-amber-400">Situacion laboral</p>
+      </div>
+      <div class="bg-card border border-bdr border-l-2 border-l-amber-500 rounded-xl overflow-hidden">
+        <div class="divide-y divide-bdr">
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Tipo_Contrato</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-amber-400/80">Indefinido · Termino fijo · Independiente · Informal</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Tipo de vinculacion laboral del solicitante. <span class="text-slate-400">Indefinido</span> = empleado con contrato sin fecha fin (mayor estabilidad). <span class="text-slate-400">Informal</span> = sin contrato ni prestaciones. Es el segundo predictor mas fuerte del dataset: ~90% de los informales son rechazados.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Antiguedad_Laboral</p><p class="text-[9px] text-slate-700 mt-0.5">Numero</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-amber-400/80">0 a 50 años</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Cuantos años lleva el solicitante trabajando en su empleo actual. A mayor antiguedad, mayor percepcion de estabilidad laboral por parte del banco.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Ingresos (MCOP)</p><p class="text-[9px] text-slate-700 mt-0.5">Numero</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-amber-400/80">Ej: 3.4M = $3.400.000 COP/mes</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Ingreso mensual del solicitante en millones de pesos colombianos. Viene del ingreso anual en USD del dataset original, dividido entre 12 y multiplicado por TRM $4.200. El banco lo usa para calcular la cuota maxima que puede asumir el solicitante (generalmente max. 30% del ingreso).</p></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo: Historial crediticio -->
+    <div class="mb-3">
+      <div class="flex items-center gap-2 mb-2 px-1">
+        <span class="w-2 h-2 rounded-full bg-emerald-500 shrink-0"></span>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-emerald-400">Historial crediticio</p>
+      </div>
+      <div class="bg-card border border-bdr border-l-2 border-l-emerald-600 rounded-xl overflow-hidden">
+        <div class="divide-y divide-bdr">
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Historial_Crediticio</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-emerald-400/80">Bueno · Regular · Malo · Inexistente</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Calificacion del comportamiento de pago pasado del solicitante, derivada del <span class="text-slate-400">loan_grade A–G</span> del dataset original (A=mejor, G=peor). Es <span class="text-emerald-400 font-medium">el predictor mas fuerte del dataset</span>: 79.1% de aprobacion para Bueno. Los bancos lo consultan en centrales de riesgo como DataCredito o TransUnion.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Anos_Historial</p><p class="text-[9px] text-slate-700 mt-0.5">Numero</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-emerald-400/80">0 a 30+ años</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Cuanto tiempo lleva el solicitante con productos financieros activos (tarjetas, prestamos, cuentas). Un historial largo con buen comportamiento genera mayor confianza en el banco.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Mora_Previa</p><p class="text-[9px] text-slate-700 mt-0.5">Si / No</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-emerald-400/80">Si · No</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Si el solicitante tuvo algun incumplimiento de pago registrado en centrales de riesgo. <span class="text-slate-400">Si</span> aparece en naranja en la tabla — es una señal de alerta directa para el banco. Aumenta significativamente la probabilidad de rechazo.</p></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo: Credito solicitado -->
+    <div class="mb-3">
+      <div class="flex items-center gap-2 mb-2 px-1">
+        <span class="w-2 h-2 rounded-full bg-sky-500 shrink-0"></span>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-sky-400">Credito solicitado</p>
+      </div>
+      <div class="bg-card border border-bdr border-l-2 border-l-sky-600 rounded-xl overflow-hidden">
+        <div class="divide-y divide-bdr">
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Monto_Solicitado</p><p class="text-[9px] text-slate-700 mt-0.5">Numero</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-sky-400/80">30M a 900M COP</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Valor del credito hipotecario que el solicitante quiere pedir al banco, en millones COP. El banco evalua si este monto es coherente con los ingresos (cuota mensual no debe superar ~30% del ingreso mensual).</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Plazo_Anos</p><p class="text-[9px] text-slate-700 mt-0.5">Numero</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-sky-400/80">10 · 15 · 20 · 25 · 30 años</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Tiempo en años para pagar el credito. A mayor plazo, menor cuota mensual pero mayor costo total en intereses. En Colombia los creditos hipotecarios pueden ir hasta 30 años.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Tasa_Interes_EA</p><p class="text-[9px] text-slate-700 mt-0.5">Porcentaje</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-sky-400/80">10% a 18% efectivo anual</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Tasa de interes efectiva anual del credito. Fue ajustada al rango real del mercado hipotecario colombiano (10%–18% EA). A mayor riesgo del solicitante, mayor tasa le ofrece el banco.</p></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo: Vivienda y subsidio -->
+    <div class="mb-3">
+      <div class="flex items-center gap-2 mb-2 px-1">
+        <span class="w-2 h-2 rounded-full bg-rose-500 shrink-0"></span>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-rose-400">Vivienda y subsidio</p>
+      </div>
+      <div class="bg-card border border-bdr border-l-2 border-l-rose-600 rounded-xl overflow-hidden">
+        <div class="divide-y divide-bdr">
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Tipo_Vivienda</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-rose-400/80">VIS · No VIS</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed"><span class="text-slate-400">VIS</span> (Vivienda de Interes Social) = inmueble con valor maximo $190M COP (135 SMMLV en 2024). <span class="text-slate-400">No VIS</span> = inmueble de mayor valor. Solo las VIS califican para el subsidio Mi Casa Ya. Variable creada sinteticamente en el ETL.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Valor_Vivienda</p><p class="text-[9px] text-slate-700 mt-0.5">Numero</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-rose-400/80">En millones COP</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Precio total del inmueble que el solicitante quiere comprar. La diferencia entre el valor de la vivienda y el monto solicitado es la cuota inicial que debe tener disponible el comprador.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Aplica_Subsidio</p><p class="text-[9px] text-slate-700 mt-0.5">Si / No</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-rose-400/80">Si · No</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Si el solicitante califica para el programa Mi Casa Ya del gobierno. Condicion: ingresos ≤ $5.2M COP/mes <span class="text-slate-600">Y</span> vivienda tipo VIS. Solo el 0.46% del dataset cumple ambas condiciones simultaneamente.</p></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Grupo: Variables objetivo -->
+    <div class="mb-3">
+      <div class="flex items-center gap-2 mb-2 px-1">
+        <span class="w-2 h-2 rounded-full bg-purple-500 shrink-0"></span>
+        <p class="text-[9px] font-bold uppercase tracking-widest text-purple-400">Variables objetivo — lo que analiza el dashboard</p>
+      </div>
+      <div class="bg-card border border-bdr border-l-2 border-l-purple-600 rounded-xl overflow-hidden">
+        <div class="divide-y divide-bdr">
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Nivel_Riesgo</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-purple-400/80">Bajo · Medio · Alto</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Score de riesgo calculado internamente (0–10) combinando: historial crediticio + ratio deuda/ingreso + tipo de contrato + mora previa. Luego clasificado en tres niveles. No es el score del banco — es una variable derivada del ETL para el analisis.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Segmento_Cliente</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3"><p class="text-[10px] text-purple-400/80">6 perfiles de cliente</p></div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Clasificacion del solicitante en uno de 6 perfiles segun su capacidad de pago e ingresos: <span class="text-slate-400">Alta capacidad de pago</span>, <span class="text-slate-400">Ingreso medio - bajo endeudamiento</span>, <span class="text-slate-400">Alto riesgo financiero</span>, <span class="text-slate-400">Independiente e ingreso variable</span>, <span class="text-slate-400">Posible subsidio Mi Casa Ya</span>, <span class="text-slate-400">Historial crediticio limitado</span>. Variable creada en el ETL.</p></div>
+          </div>
+
+          <div class="grid grid-cols-12 gap-4 px-5 py-4 items-start">
+            <div class="col-span-2"><p class="text-[11px] font-bold text-slate-300 font-mono">Estado_Solicitud</p><p class="text-[9px] text-slate-700 mt-0.5">Texto</p></div>
+            <div class="col-span-3">
+              <span class="text-[10px] text-emerald-400">Aprobado</span><span class="text-slate-700"> · </span>
+              <span class="text-[10px] text-amber-400">En estudio</span><span class="text-slate-700"> · </span>
+              <span class="text-[10px] text-rose-400">Rechazado</span>
+            </div>
+            <div class="col-span-7"><p class="text-[11px] text-slate-500 leading-relaxed">Resultado final de la solicitud de credito. Es la <span class="text-purple-400 font-medium">variable objetivo principal</span> del analisis — todo el dashboard gira en torno a entender que factores determinan este resultado. Fue derivada probabilisticamente del <span class="text-slate-400">loan_status</span> original del dataset de Kaggle.</p></div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
   </section>
 
   <!-- 06 HALLAZGOS -->
