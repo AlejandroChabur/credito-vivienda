@@ -25,6 +25,7 @@ def pct_breakdown(data, group_col):
     grp["pct"] = (grp["n"] / grp["total"] * 100).round(1)
     return grp.to_dict(orient="records")
 
+
 @app.route("/")
 def index():
     return render_template("index.html", ciudades=CIUDADES, contratos=CONTRATOS)
